@@ -65,6 +65,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      z-index: 200;
     }
 
     .nav-logo img {
@@ -109,6 +110,16 @@
 
     .nav-links a:hover::after {
       width: 100%;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--cream-dark);
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 200;
     }
 
     /* ===== HERO ===== */
@@ -1156,13 +1167,37 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .nav-links {
-        gap: 1rem;
-      }
-
       .nav-links a {
         font-size: 0.72rem;
         letter-spacing: 1px;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(59, 35, 20, 0.98);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        transition: right 0.4s cubic-bezier(0.77, 0.2, 0.05, 1);
+        z-index: 150;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .nav-links a {
+        font-size: 1.4rem;
+        letter-spacing: 3px;
       }
 
       .gallery-grid {
@@ -1247,13 +1282,9 @@
         height: 35px;
       }
 
-      .nav-links {
-        gap: 0.6rem;
-      }
-
       .nav-links a {
-        font-size: 0.65rem;
-        letter-spacing: 0.8px;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
       }
 
       section {
@@ -1379,12 +1410,15 @@
     <div class="nav-logo">
       <img src="assets/img/logoproyecto.png" alt="Amarena Pastelería">
     </div>
-    <ul class="nav-links">
+    <ul class="nav-links" id="navLinks">
       <li><a href="#servicios">Servicios</a></li>
       <li><a href="#galeria">Galería</a></li>
       <li><a href="#productos">Productos</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+      <i class="fa-solid fa-bars"></i>
+    </button>
   </nav>
 
   <!-- HERO -->
@@ -1845,6 +1879,29 @@
     const nav = document.getElementById('mainNav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('shrunk', window.scrollY > 60);
+    });
+
+    // MOBILE NAV TOGGLE
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    const toggleIcon = navToggle.querySelector('i');
+
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      const isActive = navLinks.classList.contains('active');
+      toggleIcon.classList.toggle('fa-bars', !isActive);
+      toggleIcon.classList.toggle('fa-xmark', isActive);
+      document.body.style.overflow = isActive ? 'hidden' : '';
+    });
+
+    // Close menu when a link is clicked
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        toggleIcon.classList.add('fa-bars');
+        toggleIcon.classList.remove('fa-xmark');
+        document.body.style.overflow = '';
+      });
     });
 
     // MODAL
