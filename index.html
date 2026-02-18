@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Amarena Pastelería – Pastelería Artesanal</title>
+  <!-- Preload critical fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Beau+Rivage&display=swap"
     rel="stylesheet">
@@ -39,6 +42,18 @@
       background-color: var(--cream);
       color: var(--text);
       overflow-x: hidden;
+    }
+
+    /* Prevent FOUT - hide title until fonts load */
+    .hero-title {
+      opacity: 0;
+      animation: fadeInTitle 0.3s ease-in 0.1s forwards;
+    }
+
+    @keyframes fadeInTitle {
+      to {
+        opacity: 1;
+      }
     }
 
     /* ===== NAV ===== */
@@ -184,13 +199,14 @@
     }
 
     .hero-title {
-      font-family: 'Beau Rivage', cursive;
+      font-family: 'Beau Rivage', cursive, 'Brush Script MT', 'Lucida Handwriting', serif;
       color: var(--cream);
       font-size: clamp(4rem, 12vw, 8rem);
       font-weight: 400;
       font-style: normal;
       line-height: 1;
       margin-bottom: 0.3rem;
+      font-display: swap;
     }
 
     .hero-title em {
