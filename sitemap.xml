@@ -63,21 +63,21 @@
 
     <!-- Mesa dulce para eventos -->
     <image:image>
-      <image:loc>https://amarenapasteleria.com.ar/assets/img/mesadulce.webp</image:loc>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/mesa-dulce-artesanal-eventos-cordoba.webp</image:loc>
       <image:title>Mesa dulce artesanal para eventos Córdoba</image:title>
       <image:caption>Mesa dulce completa con postres artesanales para casamientos y eventos en Córdoba</image:caption>
     </image:image>
 
     <!-- Lemon Pie artesanal -->
     <image:image>
-      <image:loc>https://amarenapasteleria.com.ar/assets/img/lemonpie.webp</image:loc>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/lemon-pie-artesanal-cordoba.webp</image:loc>
       <image:title>Lemon Pie artesanal con merengue italiano Córdoba</image:title>
       <image:caption>Lemon Pie con merengue italiano y crema de limón natural - Pastelería Córdoba</image:caption>
     </image:image>
 
     <!-- Pavlova con frutos rojos -->
     <image:image>
-      <image:loc>https://amarenapasteleria.com.ar/assets/img/pavlova.webp</image:loc>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/pavlova-con-frutos-rojos-cordoba.webp</image:loc>
       <image:title>Pavlova artesanal con frutos rojos Córdoba</image:title>
       <image:caption>Pavlova con merengue crujiente artesanal y frutos rojos frescos - Amarena Pastelería</image:caption>
     </image:image>
@@ -98,28 +98,28 @@
 
     <!-- Torta de 15 años -->
     <image:image>
-      <image:loc>https://amarenapasteleria.com.ar/assets/img/torta15.webp</image:loc>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/torta-de-15-anos-personalizada-cordoba.webp</image:loc>
       <image:title>Torta de 15 años personalizada Córdoba Argentina</image:title>
       <image:caption>Torta de 15 años con diseño elegante y personalizado - Amarena Pastelería Córdoba</image:caption>
     </image:image>
 
     <!-- Box Petit Fours -->
     <image:image>
-      <image:loc>https://amarenapasteleria.com.ar/assets/img/boxpetifur.webp</image:loc>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/box-petit-fours-artesanales-cordoba.webp</image:loc>
       <image:title>Box de Petit Fours artesanales premium Córdoba</image:title>
       <image:caption>Box de petit fours y bocados dulces artesanales premium - Amarena Pastelería</image:caption>
     </image:image>
 
     <!-- Pasta Frola - Tartas -->
     <image:image>
-      <image:loc>https://amarenapasteleria.com.ar/assets/img/pastafrola.webp</image:loc>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/pastafrola-artesanal-cordoba.webp</image:loc>
       <image:title>Pasta Frola artesanal Córdoba</image:title>
       <image:caption>Pasta Frola con dulce de membrillo sobre masa casera - Pastelería Córdoba</image:caption>
     </image:image>
 
-    <!-- Tortapersonalizada -->
+    <!-- Torta personalizada -->
     <image:image>
-      <image:loc>https://amarenapasteleria.com.ar/assets/img/tortapersonalizada.webp</image:loc>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/torta-personalizada-artesanal-cordoba.webp</image:loc>
       <image:title>Torta personalizada artesanal para eventos Córdoba</image:title>
       <image:caption>Torta personalizada para bodas y celebraciones especiales - Amarena Pastelería Córdoba</image:caption>
     </image:image>
