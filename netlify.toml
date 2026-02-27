@@ -167,7 +167,7 @@
     # object-src: plugins (ninguno - previene Flash y similares)
     #
     # AJUSTAR si se agregan recursos de terceros adicionales.
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.analytics.google.com https://stats.g.doubleclick.net; frame-src https://www.google.com/maps/; object-src 'none'; base-uri 'self'; form-action 'self';"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.analytics.google.com https://stats.g.doubleclick.net; frame-src https://www.google.com/maps/; object-src 'none'; base-uri 'self'; form-action 'self';"
 
 # ── Cache Headers para assets estáticos
 # Los assets con hash en el nombre (generados por bundlers)
