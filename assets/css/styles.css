@@ -184,14 +184,35 @@
     }
 
     .hero-title {
-      font-family: 'Beau Rivage', cursive, 'Brush Script MT', 'Lucida Handwriting', serif;
+      font-family: 'Beau Rivage', cursive;
       color: var(--cream);
       font-size: clamp(4rem, 12vw, 8rem);
       font-weight: 400;
       font-style: normal;
       line-height: 1;
       margin-bottom: 0.3rem;
-      font-display: swap;
+
+      /*
+   * FOUT FIX:
+   * Empieza invisible. main.js agrega .fonts-loaded al <html>
+   * cuando document.fonts.ready resuelve → fade-in con la fuente correcta.
+   * El usuario nunca ve la fuente de fallback.
+   */
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    /* Activado por JS cuando las fuentes están listas */
+    .fonts-loaded .hero-title {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Fallback: si JS está desactivado, mostrar igualmente */
+    .no-js .hero-title {
+      opacity: 1;
+      transform: none;
     }
 
     .hero-title em {

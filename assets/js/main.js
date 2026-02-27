@@ -11,6 +11,32 @@
  * - Preferir requestAnimationFrame para cambios visuales
  */
 
+/*
+ * FONT LOADING — Elimina FOUT en el hero title
+ *
+ * document.fonts.ready: Promise que resuelve cuando TODAS las
+ * webfonts declaradas en el CSS terminaron de cargar (o fallaron).
+ *
+ * Flujo:
+ * 1. HTML carga con class="no-js" → .hero-title opacity:0
+ * 2. JS quita "no-js" → ya no es fallback
+ * 3. fonts.ready resuelve → agrega "fonts-loaded"
+ * 4. CSS transition hace fade-in suave con la fuente correcta
+ *
+ * display=block en Google Fonts URL:
+ * El browser mantiene el espacio reservado (invisible, no layout shift)
+ * durante la descarga, en lugar de mostrar el fallback (swap).
+ * Combinado con opacity:0 = el usuario nunca ve texto con fuente incorrecta.
+ */
+document.documentElement.classList.remove('no-js');
+
+document.fonts.ready.then(() => {
+  document.documentElement.classList.add('fonts-loaded');
+}).catch(() => {
+  // Si las fuentes fallan (offline, timeout), mostrar el texto igual
+  document.documentElement.classList.add('fonts-loaded');
+});
+
 'use strict'; // Modo estricto: previene errores silenciosos
 
 /* ─────────────────────────────────────────────────────────────
