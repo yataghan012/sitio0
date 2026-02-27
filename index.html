@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SEO TÉCNICO CRÍTICO
+       
+       REGLAS:
+       - <title>: máx. 60 chars · keyword principal PRIMERO · ciudad al final
+       - <meta description>: máx. 155 chars · CTA natural · keyword geográfica
+       - Canonical: URL exacta canonicalizada (sin www, con https)
+       - robots: directivas explícitas para control de snippets
+       
+       VERIFICAR EN: https://search.google.com/test/rich-results
+  ═══════════════════════════════════════════════════════════════════ -->
+
+  <!-- ══ TITLE (57 chars) — keyword "pastelería artesanal" primero ══ -->
+  <title>Pastelería Artesanal en Córdoba | Amarena Pastelería</title>
+
+  <!-- ══ META DESCRIPTION (152 chars) ══ -->
+  <meta name="description"
+    content="Pastelería artesanal en Córdoba. Tortas personalizadas para cumpleaños y bodas, mesa dulce, tartas y pavlova. Ingredientes selectos, hecho a mano. ☎ (351) 248-4288.">
+
+  <!--
+    PRÁCTICA OBSOLETA ELIMINADA:
+    <meta name="keywords"> fue abandonada por Google en 2009.
+    NO incluirla — no aporta valor SEO y revela keywords a competidores.
+    Referencia: https://developers.google.com/search/blog/2009/09/google-does-not-use-the-keywords-meta
+  -->
+
+  <!-- ══ DIRECTIVAS DE INDEXACIÓN ══ -->
+  <!--
+    max-snippet:-1   → Google puede usar el snippet completo (mejor CTR)
+    max-image-preview:large → imágenes de producto en tamaño grande
+    max-video-preview:-1 → si se agrega video, Google puede previsualizar
+  -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="author" content="Amarena Pastelería">
+
+  <!-- ══ CANONICAL — evita contenido duplicado www vs sin-www ══ -->
+  <!--
+    IMPORTANTE: debe coincidir EXACTAMENTE con el redirect 301 en netlify.toml
+    y con la URL en Google Business Profile.
+    NO usar canonical + redirect apuntando a URLs distintas (conflicto).
+  -->
+  <link rel="canonical" href="https://amarenapasteleria.com.ar/">
+
+  <!-- ══ FAVICON / ICONOS — Identidad de marca ══ -->
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/favicon.png">
+
+  <!-- ══ TEMA / PWA ══ -->
+  <meta name="theme-color" content="#3b2314">
+  <!--
+    manifest.json habilita la instalación como PWA (Add to Home Screen).
+    Es una señal de "sitio moderno" para Google.
+    Los íconos referenciados en manifest.json deben generarse.
+  -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       GEO LOCAL
+       Estas metatags refuerzan la señal geográfica local.
+       Complementan (no reemplazan) el Schema.org con coordenadas GPS.
+       AR-X = código ISO de la provincia de Córdoba, Argentina.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <meta name="geo.region" content="AR-X">
+  <meta name="geo.placename" content="Córdoba, Córdoba, Argentina">
+  <meta name="geo.position" content="-31.4135;-64.1811">
+  <meta name="ICBM" content="-31.4135, -64.1811">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       OPEN GRAPH — Controla cómo se ve el link en WhatsApp, Instagram,
+       Facebook, Telegram, LinkedIn.
+       
+       CRÍTICO: og:image debe ser 1200×630px para que no se recorte.
+       TODO: crear assets/img/og-image.webp de 1200×630px con foto del
+       mejor producto + logo. Ver nota de pendientes al final del archivo.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <meta property="og:type" content="business.business">
+  <meta property="og:title" content="Amarena Pastelería 🎂 | Tortas Artesanales en Córdoba">
+  <meta property="og:description"
+    content="Tortas personalizadas, mesa dulce y pastelería artesanal en Córdoba. Cada creación hecha a mano con ingredientes selectos. ¡Pedí tu torta especial!">
+  <!-- TODO: crear og-image.jpg de 1200×630px (ver pendientes al final) -->
+  <meta property="og:image" content="https://amarenapasteleria.com.ar/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Amarena Pastelería - Tortas artesanales y mesa dulce en Córdoba Argentina">
+  <meta property="og:url" content="https://amarenapasteleria.com.ar/">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:site_name" content="Amarena Pastelería">
+  <meta property="business:contact_data:locality" content="Córdoba">
+  <meta property="business:contact_data:country_name" content="Argentina">
+  <meta property="business:contact_data:phone_number" content="+54-351-248-4288">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       TWITTER / X CARDS
+       Usadas por Telegram, Discord y otras apps que leen OpenGraph.
+       summary_large_image: muestra imagen grande debajo del texto.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Amarena Pastelería | Tortas Artesanales en Córdoba">
+  <meta name="twitter:description"
+    content="Pastelería artesanal en Córdoba. Tortas personalizadas, mesa dulce y más. Pedí tu celebración especial.">
+  <meta name="twitter:image" content="https://amarenapasteleria.com.ar/assets/img/og-image.jpg">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       PERFORMANCE — CARGA OPTIMIZADA DE RECURSOS
+       
+       ORDEN CRÍTICO:
+       1. preconnect → TCP antes de que se necesite el recurso
+       2. Fonts + íconos CSS
+       3. CSS propio (bloquea render intencionalmente)
+       
+       CORE WEB VITALS TARGET:
+       - LCP < 2.5s  (imagen hero / logotipo)
+       - CLS < 0.1   (width/height en <img> + fuentes con display=swap)
+       - INP < 200ms (scripts pequeños + defer)
+  ═══════════════════════════════════════════════════════════════════ -->
+
+  <!--
+    preconnect: establece conexión DNS+TCP+TLS con estos dominios
+    ANTES de que el HTML pida recursos de ahí.
+    Ahorra 200-500ms en conexiones móviles lentas.
+    
+    crossorigin en fonts.gstatic.com: las fuentes requieren CORS.
+    Sin crossorigin, el browser haría dos conexiones separadas.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <!--
+    Google Fonts con display=swap:
+    swap = muestra texto en fuente del sistema mientras carga la webfont
+    Previene FOIT (Flash of Invisible Text).
+    Solo los weights que realmente se usan en el CSS.
+  -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Beau+Rivage&display=swap"
+    rel="stylesheet">
+
+  <!--
+    Font Awesome via CDN.
+    ALTERNATIVA FUTURA: reemplazar con SVG inline para los 4-5 íconos
+    usados → elimina 1 request externo → mejora LCP.
+  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- CSS propio — crítico, bloquea render intencionalmente -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SCHEMA.ORG JSON-LD — Datos Estructurados
+       
+       JSON-LD es el formato recomendado por Google (vs Microdata/RDFa).
+       Se coloca en el <head> para que sea leído antes que el body.
+       
+       @graph: múltiples entidades relacionadas en un bloque JSON.
+       
+       TIPOS IMPLEMENTADOS:
+       - Bakery (extiende LocalBusiness → habilita horarios y mapa en Google)
+       - WebSite (con SearchAction)
+       - FAQPage (habilita FAQ Rich Results — cajas expandibles en Google)
+       
+       VALIDAR EN:
+       https://search.google.com/test/rich-results
+       https://validator.schema.org/
+       
+       PRÓXIMO PASO cuando haya reseñas reales (mínimo 5):
+       Agregar AggregateRating para mostrar estrellas en los resultados.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Bakery",
+        "@id": "https://amarenapasteleria.com.ar/#bakery",
+        "name": "Amarena Pastelería",
+        "description": "Pastelería artesanal en Córdoba Capital especializada en tortas personalizadas para cumpleaños, bodas y eventos. Mesa dulce completa, tartas artesanales, lemon pie, pavlova, marquise y petit fours. Elaboramos cada producto a mano con ingredientes de primera calidad. Envío a domicilio en Córdoba.",
+        "url": "https://amarenapasteleria.com.ar",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://amarenapasteleria.com.ar/assets/img/og-image.jpg",
+          "width": 1200,
+          "height": 630,
+          "caption": "Amarena Pastelería - Tortas artesanales en Córdoba"
+        },
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://amarenapasteleria.com.ar/assets/img/logoproyecto.png",
+          "width": 180,
+          "height": 70
+        },
+        "telephone": "+543512484288",
+        "email": "hola@amarenapasteleria.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Barrio Empalme",
+          "addressLocality": "Córdoba",
+          "addressRegion": "Córdoba",
+          "postalCode": "5000",
+          "addressCountry": "AR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -31.4135,
+          "longitude": -64.1811
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+            "opens": "09:00",
+            "closes": "19:00"
+          }
+        ],
+        "priceRange": "$$",
+        "currenciesAccepted": "ARS",
+        "paymentAccepted": "Efectivo, Transferencia bancaria",
+        "servesCuisine": ["Pastelería Artesanal","Repostería","Tortas Personalizadas"],
+        "areaServed": {
+          "@type": "City",
+          "name": "Córdoba"
+        },
+        "sameAs": [
+          "https://www.instagram.com/amarenacba21/"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Catálogo Amarena Pastelería",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Product",
+                "name": "Torta Personalizada para Cumpleaños",
+                "description": "Tortas únicas con decoración personalizada y sabor a elección para cumpleaños en Córdoba.",
+                "image": "https://amarenapasteleria.com.ar/assets/img/torta-cumpleanos-personalizada-cordoba.webp"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Product",
+                "name": "Mesa Dulce para Eventos",
+                "description": "Mesas dulces completas con variedad de postres artesanales para eventos y bodas en Córdoba.",
+                "image": "https://amarenapasteleria.com.ar/assets/img/mesadulce.webp"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Product",
+                "name": "Lemon Pie Artesanal",
+                "description": "Merengue italiano sobre crema de limón natural. Pastelería Córdoba.",
+                "image": "https://amarenapasteleria.com.ar/assets/img/lemonpie.webp"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Product",
+                "name": "Pavlova con Frutos Rojos",
+                "description": "Mousse con merengue crujiente artesanal y frutos rojos. Pastelería Córdoba.",
+                "image": "https://amarenapasteleria.com.ar/assets/img/pavlova.webp"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Product",
+                "name": "Marquise de Chocolate",
+                "description": "Chocolate semiamargo con dulce de leche y frutos rojos. Pastelería artesanal Córdoba.",
+                "image": "https://amarenapasteleria.com.ar/assets/img/marquise-chocolate-cordoba.webp"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Product",
+                "name": "Box de Petit Fours Artesanales",
+                "description": "Bocados dulces artesanales premium. Cremocoas y mini tartas. Pastelería Córdoba.",
+                "image": "https://amarenapasteleria.com.ar/assets/img/boxpetifur.webp"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Product",
+                "name": "Torta de 15 Años",
+                "description": "Diseños únicos y personalizados para celebrar los 15 años en Córdoba.",
+                "image": "https://amarenapasteleria.com.ar/assets/img/torta15.webp"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://amarenapasteleria.com.ar/#website",
+        "url": "https://amarenapasteleria.com.ar",
+        "name": "Amarena Pastelería",
+        "publisher": { "@id": "https://amarenapasteleria.com.ar/#bakery" },
+        "inLanguage": "es-AR"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://amarenapasteleria.com.ar/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Con cuánta anticipación debo pedir una torta personalizada en Córdoba?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Recomendamos pedir con al menos 5 a 7 días de anticipación. Para bodas y eventos grandes, 2 a 3 semanas. Consultanos por WhatsApp al (351) 248-4288."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Hacen envíos a domicilio en Córdoba Capital?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, realizamos envíos a domicilio en Córdoba Capital con embalaje especial que preserva la calidad de cada producto. Consultá disponibilidad para tu zona por WhatsApp."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Dónde está ubicada Amarena Pastelería en Córdoba?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Estamos en el Barrio Empalme, Córdoba Capital. Atendemos lunes a sábados de 9:00 a 19:00hs. También podés contactarnos por WhatsApp al (351) 248-4288."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuánto cuesta una torta de cumpleaños personalizada en Córdoba?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "El precio varía según el tamaño, diseño y cantidad de porciones. Contactanos por WhatsApp al (351) 248-4288 con los detalles de tu evento y te damos presupuesto sin costo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Hacen mesa dulce para eventos y bodas en Córdoba?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, armamos mesas dulces completas para todo tipo de eventos: casamientos, cumpleaños de 15, fiestas infantiles y corporativos. Consultanos con anticipación para fechas especiales."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       GOOGLE ANALYTICS 4
+       
+       🔴 CRÍTICO: Instalar ANTES del lanzamiento.
+       Cada día sin tracking = datos históricos perdidos para siempre.
+       
+       PASOS:
+       1. analytics.google.com → Crear cuenta → Propiedad GA4
+       2. Obtener Measurement ID (formato: G-XXXXXXXXXX)
+       3. Reemplazar "G-XXXXXXXXXX" con el ID real
+       4. Verificar en GA4 → DebugView que llegan eventos
+       
+       NOTA: async garantiza que GA4 NO bloquea el render.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <!--
+    TODO: Descomentar y completar con el Measurement ID real
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX', {
+        send_page_view: true,
+        anonymize_ip: true
+      });
+    </script>
+  -->
+
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       NAVEGACIÓN PRINCIPAL
+       
+       Accesibilidad + SEO:
+       - <nav> semántico con aria-label descriptivo
+       - aria-expanded actualizado via JS en mobile
+       - Logo como <a> con aria-label (navegar al inicio)
+       - logoproyecto.webp: 22KB vs 360KB del PNG original (94% menos)
+       - fetchpriority="high": logo está above-the-fold, cargarlo primero
+  ═══════════════════════════════════════════════════════════════════ -->
+  <nav id="mainNav" aria-label="Navegación principal">
+    <div class="nav-logo">
+      <a href="/" aria-label="Ir al inicio - Amarena Pastelería">
+        <!--
+          width/height EXPLÍCITOS → previene CLS (Layout Shift).
+          Sin estas dimensiones, el browser no sabe cuánto espacio
+          reservar y el layout "salta" cuando carga la imagen.
+          CLS penaliza directamente el ranking en Google.
+        -->
+        <img src="assets/img/logoproyecto.png" alt="Amarena Pastelería - Pastelería Artesanal en Córdoba" width="180"
+          height="70" fetchpriority="high">
+      </a>
+    </div>
+
+    <ul class="nav-links" id="navLinks" role="list">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú de navegación" aria-expanded="false"
+      aria-controls="navLinks" type="button">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       HERO SECTION — Above the Fold
+       
+       🔴 CRÍTICO SEO On-Page:
+       - H1 ÚNICO en toda la página (un solo H1 es obligatorio)
+       - El hero es el LCP más probable → no usar lazy loading aquí
+       - aria-label de la <section> con keyword geográfica completa
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="hero" aria-label="Bienvenidos a Amarena Pastelería — Pastelería Artesanal en Córdoba Argentina">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <span class="hero-deco left" aria-hidden="true">🌾</span>
+    <span class="hero-deco right" aria-hidden="true">🍂</span>
+    <div class="hero-content">
+      <div class="hero-tag">Pastelería Artesanal · Córdoba</div>
+      <!--
+        H1 ÚNICO: Google usa este como señal principal del tema de la página.
+        Múltiples H1 = señal confusa. Solo uno por página, siempre.
+      -->
+      <h1 class="hero-title">
+        <em style="color: white;">Amarena</em><br>
+        <em>Pastelería</em>
+      </h1>
+      <div class="hero-divider" aria-hidden="true"></div>
+      <p class="hero-sub">Cada pieza es una obra de arte hecha con manos artesanas, ingredientes selectos y una pizca de
+        amor</p>
+      <!--
+        CTA con anchor link = link interno = señal de arquitectura
+        para Google + mejora experiencia de usuario.
+      -->
+      <a href="#productos" class="btn-hero">Ver Catálogo de Productos</a>
+    </div>
+    <div class="scroll-arrow" aria-hidden="true">▼</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECCIÓN SERVICIOS
+       
+       Jerarquía de headings: H1 (hero) → H2 (sección) → H3 (items)
+       Google usa esta jerarquía para entender estructura del contenido.
+       Un H3 que aparece antes que el H2 = jerarquía rota = señal negativa.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section id="servicios" aria-labelledby="servicios-title">
+    <div class="reveal">
+      <div class="ornament" aria-hidden="true">✦</div>
+      <p class="section-label">Lo que ofrecemos</p>
+      <h2 class="section-title" id="servicios-title">Nuestros <em>Servicios</em></h2>
+      <p class="section-desc">Desde tortas personalizadas para tu evento hasta los dulces artesanales de cada día,
+        estamos aquí para hacer cada momento más dulce en Córdoba.</p>
+    </div>
+
+    <div class="servicios-grid">
+      <div class="servicio-card reveal">
+        <!--
+          background-image CSS: no indexado por Google Images directamente.
+          role="img" + aria-label: accesibilidad + contexto semántico.
+          Imagen como WebP: tortapersonalizada.webp (111KB vs 246KB del JPEG)
+        -->
+        <div class="servicio-img-circle" style="background-image: url('assets/img/tortapersonalizada.webp');" role="img"
+          aria-label="Torta personalizada artesanal en Córdoba">
+        </div>
+        <h3>Tortas Personalizadas para Cumpleaños y Bodas</h3>
+        <p>Diseñamos y creamos tortas únicas para cumpleaños, bodas y celebraciones especiales en Córdoba según tu
+          visión y gustos.</p>
+      </div>
+
+      <div class="servicio-card reveal">
+        <div class="servicio-img-circle" style="background-image: url('assets/img/mesadulce.webp');" role="img"
+          aria-label="Mesa dulce artesanal para eventos en Córdoba">
+        </div>
+        <h3>Mesa Dulce para Eventos</h3>
+        <p>Armamos mesas dulces completas con variedad de postres artesanales para que tu evento en Córdoba sea
+          inolvidable.</p>
+      </div>
+
+      <div class="servicio-card reveal">
+        <span class="servicio-icon" aria-hidden="true">📦</span>
+        <h3>Envío a Domicilio en Córdoba Capital</h3>
+        <p>Recibí tus pedidos directamente en tu casa con embalaje especial que preserva la calidad y presentación de
+          cada producto.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECCIÓN GALERÍA
+       
+       Performance:
+       - Imágenes below-the-fold → background-image CSS (lazy via JS)
+       - Todos los nombres de archivo: WebP descriptivo con ciudad
+       - aria-label en cada imagen = contexto semántico para Google
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section id="galeria" aria-labelledby="galeria-title">
+    <div class="reveal">
+      <div class="ornament" style="color: var(--gold-light)" aria-hidden="true">✦</div>
+      <p class="section-label">Momentos dulces</p>
+      <h2 class="section-title" id="galeria-title">Nuestra <em>Galería</em></h2>
+      <p class="section-desc">Una muestra de las creaciones que salen cada día de nuestra cocina artesanal en Córdoba
+        con dedicación y pasión.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item g1 reveal">
+        <div class="g-bg" style="background-image: url('assets/img/torta-cumpleanos-personalizada-cordoba.webp');"
+          role="img" aria-label="Torta de cumpleaños artesanal personalizada - Amarena Pastelería Córdoba">
+        </div>
+        <div class="g-overlay"><span>Torta de Cumpleaños</span></div>
+      </div>
+
+      <div class="gallery-item g2 reveal">
+        <div class="g-bg" style="background-image: url('assets/img/lemonpie.webp');" role="img"
+          aria-label="Lemon Pie artesanal con merengue italiano - Pastelería Córdoba">
+        </div>
+        <div class="g-overlay"><span>Lemon Pie</span></div>
+      </div>
+
+      <div class="gallery-item g3 reveal">
+        <div class="g-bg" style="background-image: url('assets/img/hojaldre.webp');" role="img"
+          aria-label="Hojaldre artesanal - Amarena Pastelería Córdoba">
+        </div>
+        <div class="g-overlay"><span>Hojaldre</span></div>
+      </div>
+
+      <div class="gallery-item g4 reveal">
+        <div class="g-bg" style="background-image: url('assets/img/bombas.webp');" role="img"
+          aria-label="Profiteroles artesanales con crema pastelera - Pastelería Córdoba">
+        </div>
+        <div class="g-overlay"><span>Profiteroles con Crema Pastelera</span></div>
+      </div>
+
+      <div class="gallery-item g5 reveal">
+        <div class="g-bg" style="background-image: url('assets/img/longcake.webp');" role="img"
+          aria-label="Long Cake artesanal - Amarena Pastelería Córdoba">
+        </div>
+        <div class="g-overlay"><span>Long Cake</span></div>
+      </div>
+
+      <div class="gallery-item g6 reveal">
+        <div class="g-bg" style="background-image: url('assets/img/rogel-artesanal-cordoba.webp');" role="img"
+          aria-label="Rogel artesanal con dulce de leche - Pastelería Córdoba">
+        </div>
+        <div class="g-overlay"><span>Rogel</span></div>
+      </div>
+
+      <div class="gallery-item g7 reveal">
+        <div class="g-bg" style="background-image: url('assets/img/marquise-chocolate-cordoba.webp');" role="img"
+          aria-label="Marquise de chocolate con dulce de leche - Amarena Pastelería Córdoba">
+        </div>
+        <div class="g-overlay"><span>Marquise de Chocolate</span></div>
+      </div>
+
+      <div class="gallery-item g8 reveal">
+        <div class="g-bg" style="background-image: url('assets/img/torta-cumpleanos-artesanal-cordoba.webp');"
+          role="img" aria-label="Torta de cumpleaños artesanal - Pastelería Artesanal Córdoba">
+        </div>
+        <div class="g-overlay"><span>Torta de Cumpleaños</span></div>
+      </div>
+
+      <div class="gallery-item g9 reveal">
+        <div class="g-bg" style="background-image: url('assets/img/3tortas.webp');" role="img"
+          aria-label="Especialidades artesanales de Amarena Pastelería Córdoba">
+        </div>
+        <div class="g-overlay"><span>Nuestras Especialidades</span></div>
+      </div>
+
+      <div class="gallery-item g10 reveal">
+        <div class="g-bg" style="background-image: url('assets/img/starwars.webp');" role="img"
+          aria-label="Torta temática personalizada Star Wars - Pastelería Córdoba">
+        </div>
+        <div class="g-overlay"><span>Pastelería Temática</span></div>
+      </div>
+
+      <div class="gallery-item g11 reveal">
+        <div class="g-bg" style="background-image: url('assets/img/torta15.webp');" role="img"
+          aria-label="Torta de 15 años personalizada - Amarena Pastelería Córdoba">
+        </div>
+        <div class="g-overlay"><span>Tortas de 15 Años</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECCIÓN PRODUCTOS / CATÁLOGO
+       
+       H2 "Catálogo" → H3 por producto con keyword descriptiva.
+       FUTURA MEJORA DE SEO: crear página individual por producto.
+       Ejemplo: /lemon-pie-cordoba, /tortas-personalizadas-cordoba
+       Cada página = nueva oportunidad de rankear para una keyword.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section id="productos" aria-labelledby="productos-title">
+    <div class="reveal">
+      <div class="ornament" aria-hidden="true">✦</div>
+      <p class="section-label">Sabores artesanales</p>
+      <h2 class="section-title" id="productos-title">Nuestro <em>Catálogo</em></h2>
+      <p class="section-desc">Creaciones hechas a mano cada día con ingredientes de la máxima calidad y recetas que nos
+        han sido legadas por generaciones.</p>
+    </div>
+
+    <div class="productos-grid">
+      <!--
+        tabindex="0": permite activar con teclado (accesibilidad).
+        aria-haspopup="dialog": informa a screen readers que abre un modal.
+      -->
+      <div class="producto-card reveal" id="tartasCard" style="cursor: pointer;" role="button" tabindex="0"
+        aria-haspopup="dialog" aria-label="Ver variedad de tartas artesanales en Córdoba">
+        <div class="producto-img" style="background-image: url('assets/img/pastafrola.webp');" role="img"
+          aria-label="Pasta Frola artesanal - Amarena Pastelería Córdoba">
+        </div>
+        <div class="producto-body">
+          <h3>Tartas Artesanales</h3>
+          <p>Pasta Frola, Lemon Pie, Cabsha, Tarta de Durazno y Naranja — masa casera y frutas frescas</p>
+        </div>
+      </div>
+
+      <div class="producto-card reveal">
+        <div class="producto-img" style="background-image: url('assets/img/torta-cumpleanos-cordoba.webp');" role="img"
+          aria-label="Torta de cumpleaños personalizada - Pastelería Córdoba">
+        </div>
+        <div class="producto-body">
+          <h3>Torta de Cumpleaños Personalizada</h3>
+          <p>Decoración personalizada · Sabor a elección · Envío a domicilio</p>
+        </div>
+      </div>
+
+      <div class="producto-card reveal">
+        <div class="producto-img" style="background-image: url('assets/img/boxpetifur.webp');" role="img"
+          aria-label="Box de Petit Fours artesanales - Amarena Pastelería Córdoba">
+        </div>
+        <div class="producto-body">
+          <h3>Box de Petit Fours Artesanales</h3>
+          <p>Variedad de bocados dulces artesanales premium para regalo o eventos</p>
+        </div>
+      </div>
+
+      <div class="producto-card reveal">
+        <div class="producto-img" style="background-image: url('assets/img/pavlova.webp');" role="img"
+          aria-label="Pavlova artesanal con frutos rojos - Pastelería Córdoba">
+        </div>
+        <div class="producto-body">
+          <h3>Pavlova con Frutos Rojos</h3>
+          <p>Mousse ligera con merengue crujiente artesanal y frutos rojos frescos</p>
+        </div>
+      </div>
+
+      <div class="producto-card reveal">
+        <div class="producto-img" style="background-image: url('assets/img/marquise-chocolate-cordoba.webp');"
+          role="img" aria-label="Marquise de chocolate artesanal - Amarena Pastelería Córdoba">
+        </div>
+        <div class="producto-body">
+          <h3>Marquise de Chocolate</h3>
+          <p>Base de chocolate semiamargo con dulce de leche, crema y frutos rojos</p>
+        </div>
+      </div>
+
+      <div class="producto-card more-card reveal" id="moreBtn" role="button" tabindex="0" aria-haspopup="dialog"
+        aria-label="Ver más productos artesanales de Amarena Pastelería">
+        <div class="more-plus" aria-hidden="true">+</div>
+        <span>Ver más productos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECCIÓN FAQ — E-E-A-T + SGE / AI Overview Optimization
+       
+       🔴 IMPORTANCIA SEO 2024-2025:
+       
+       1. FAQ Rich Results: Google muestra cajas expandibles bajo el
+          resultado cuando detecta FAQPage Schema + contenido visible
+          en el HTML → más espacio en la página de resultados → más CTR
+       
+       2. SGE / AI Overview: Google y ChatGPT leen esta sección para
+          generar respuestas directas en sus AI Overviews.
+          El formato pregunta→respuesta es óptimo para IA.
+       
+       3. Búsquedas conversacionales: captura queries como
+          "cuánto cuesta una torta en Córdoba" que no tienen
+          la keyword exacta pero tienen intención de compra.
+       
+       SINCRONIZACIÓN: Las preguntas deben ser IDÉNTICAS aquí y en el
+       JSON-LD FAQPage del <head>. Inconsistencias = Rich Results no aparecen.
+       
+       details/summary: HTML nativo, sin JavaScript, accesible,
+       indexable y rastreable por Google.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section id="faq" aria-labelledby="faq-title" class="faq-section">
+    <div class="reveal">
+      <div class="ornament" aria-hidden="true">✦</div>
+      <p class="section-label">Preguntas frecuentes</p>
+      <h2 class="section-title" id="faq-title">¿Tenés <em>Dudas?</em></h2>
+      <p class="section-desc">Las preguntas más comunes de nuestros clientes sobre pedidos, envíos y productos
+        artesanales en Córdoba.</p>
+    </div>
+
+    <div class="faq-grid reveal">
+      <details class="faq-item">
+        <summary>¿Con cuánta anticipación debo pedir una torta personalizada en Córdoba?</summary>
+        <p>Recomendamos pedir con al menos <strong>5 a 7 días de anticipación</strong>. Para bodas y eventos grandes, 2
+          a 3 semanas. Consultanos por WhatsApp al (351) 248-4288 para verificar disponibilidad.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Hacen envíos a domicilio en Córdoba Capital?</summary>
+        <p>Sí, realizamos <strong>envíos a domicilio en Córdoba Capital</strong> con embalaje especial que preserva la
+          calidad de cada producto. Consultá disponibilidad para tu zona por WhatsApp.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Dónde está ubicada Amarena Pastelería en Córdoba?</summary>
+        <p>Estamos en el <strong>Barrio Empalme, Córdoba Capital</strong>. Atendemos lunes a sábados de 9:00 a 19:00hs.
+          También podés contactarnos por WhatsApp al (351) 248-4288.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Cuánto cuesta una torta de cumpleaños personalizada en Córdoba?</summary>
+        <p>El precio varía según el <strong>tamaño, diseño y cantidad de porciones</strong>. Contactanos por WhatsApp
+          con los detalles de tu evento y te damos presupuesto sin costo ni compromiso.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>¿Hacen mesa dulce para eventos y bodas en Córdoba?</summary>
+        <p>Sí, armamos <strong>mesas dulces completas para todo tipo de eventos</strong>: casamientos, cumpleaños de 15,
+          fiestas infantiles y corporativos. Consultanos con anticipación para fechas especiales.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       MODALES
+       
+       Accesibilidad:
+       - hidden (atributo HTML nativo) en lugar de display:none via CSS
+       - role="dialog" + aria-modal="true" para screen readers
+       - JS actualiza hidden para mostrar/ocultar
+       - Escape key cierra el modal (implementado en JS)
+  ═══════════════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="moreModal" role="dialog" aria-modal="true" aria-labelledby="moreModalTitle" hidden>
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="Cerrar modal de más productos"
+        type="button">&times;</button>
+      <h2 id="moreModalTitle">Más de la Cocina Artesanal</h2>
+      <p class="modal-sub">Pequeñas delicias elaboradas con el mismo amor y dedicación artesanal</p>
+
+      <div class="modal-item">
+        <div class="modal-item-icon" style="background-image: url('assets/img/cremocoas.webp');" role="img"
+          aria-label="Cremocoas artesanales Córdoba">
+        </div>
+        <div class="modal-item-info">
+          <h4>Cremocoas</h4>
+          <p>Bocados de chocolate rellenos con una suave crema, un clásico irresistible de la pastelería artesanal</p>
+        </div>
+      </div>
+
+      <div class="modal-item">
+        <div class="modal-item-icon" style="background-image: url('assets/img/tresleches.webp');" role="img"
+          aria-label="Tres Leches artesanal Córdoba">
+        </div>
+        <div class="modal-item-info">
+          <h4>Tres Leches</h4>
+          <p>Bizcocho esponjoso embebido en tres tipos de leche y decorado con crema batida artesanal</p>
+        </div>
+      </div>
+
+      <div class="modal-item">
+        <div class="modal-item-icon" style="background-image: url('assets/img/tortasinfantiles.webp');" role="img"
+          aria-label="Tortas infantiles personalizadas Córdoba">
+        </div>
+        <div class="modal-item-info">
+          <h4>Tortas Infantiles Personalizadas</h4>
+          <p>Diseños mágicos y coloridos para los más pequeños, con sus personajes favoritos y decoración única</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="tartasModal" role="dialog" aria-modal="true" aria-labelledby="tartasModalTitle" hidden>
+    <div class="modal-box">
+      <button class="modal-close" id="tartasModalClose" aria-label="Cerrar modal de tartas artesanales"
+        type="button">&times;</button>
+      <h2 id="tartasModalTitle">Tartas Artesanales en Córdoba</h2>
+      <p class="modal-sub">Masa casera, rellenos naturales y frutas frescas de estación</p>
+
+      <div class="modal-item">
+        <div class="modal-item-icon" style="background-image: url('assets/img/lemonpie2.webp');" role="img"
+          aria-label="Lemon Pie artesanal Córdoba">
+        </div>
+        <div class="modal-item-info">
+          <h4>Lemon Pie</h4>
+          <p>Merengue italiano sobre crema de limón natural y base crocante. Un clásico irresistible.</p>
+        </div>
+      </div>
+
+      <div class="modal-item">
+        <div class="modal-item-icon" style="background-image: url('assets/img/tartanaranja.webp');" role="img"
+          aria-label="Tarta de naranja artesanal Córdoba">
+        </div>
+        <div class="modal-item-info">
+          <h4>Tarta de Naranja</h4>
+          <p>Crema de naranja fresca con base crocante y decoración de gajos naturales.</p>
+        </div>
+      </div>
+
+      <div class="modal-item">
+        <div class="modal-item-icon" style="background-image: url('assets/img/cabsha.webp');" role="img"
+          aria-label="Tarta Cabsha chocolate dulce de leche Córdoba">
+        </div>
+        <div class="modal-item-info">
+          <h4>Cabsha</h4>
+          <p>Intenso chocolate semiamargo y dulce de leche sobre masa sablé artesanal.</p>
+        </div>
+      </div>
+
+      <div class="modal-item">
+        <div class="modal-item-icon" style="background-image: url('assets/img/tartadurazno.webp');" role="img"
+          aria-label="Tarta de durazno artesanal Córdoba">
+        </div>
+        <div class="modal-item-info">
+          <h4>Tarta de Durazno</h4>
+          <p>Duraznos frescos de estación con crema pastelera artesanal sobre base crujiente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECCIÓN CONTACTO
+       
+       SEO Local — NAP Consistency (CRÍTICO):
+       Nombre, Dirección y Teléfono IDÉNTICOS en:
+       ✓ Este HTML (aquí abajo)
+       ✓ Google Business Profile (debe verificarse)
+       ✓ Instagram bio @amarenacba21
+       ✓ Bing Places for Business (pendiente)
+       ✓ Apple Maps Connect (pendiente)
+       ✓ Páginas Amarillas Argentina (pendiente)
+       
+       Una sola variación (ej: "Barrio Empalme" vs "B° Empalme") 
+       confunde a Google sobre la identidad del negocio.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section id="contacto" aria-labelledby="contacto-title">
+    <div class="reveal">
+      <div class="ornament" aria-hidden="true">✦</div>
+      <p class="section-label">Escribínos</p>
+      <h2 class="section-title" id="contacto-title">Tomemos <em>Contacto</em></h2>
+      <p class="section-desc">¿Tenés un evento especial en Córdoba? Nos encantaría ser parte de tus celebraciones
+        dulces.</p>
+    </div>
+
+    <div class="contacto-wrap">
+      <!--
+        itemscope/itemtype: Microdata Schema.org como refuerzo secundario.
+        El JSON-LD del <head> es el primario (preferido por Google).
+        Ambos coexisten sin conflicto.
+      -->
+      <div class="contacto-info reveal" itemscope itemtype="https://schema.org/Bakery">
+        <meta itemprop="name" content="Amarena Pastelería">
+        <meta itemprop="priceRange" content="$$">
+
+        <h3>Visitanos o escribínos</h3>
+        <p>Estamos disponibles para atenderte en persona o a distancia. Nos interesa conocer tu proyecto y crear algo
+          memorable para tu celebración.</p>
+
+        <div class="info-item">
+          <span class="info-icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
+          <div>
+            <strong>Ubicación</strong>
+            <!--
+              <address>: elemento HTML semántico para info de contacto.
+              font-style:normal → no mostrar en cursiva (default de browsers).
+            -->
+            <address itemprop="address" itemscope itemtype="https://schema.org/PostalAddress"
+              style="font-style:normal;">
+              <span itemprop="streetAddress">B° Empalme</span>,
+              <span itemprop="addressLocality">Córdoba</span>,
+              <span itemprop="addressCountry">Argentina</span>
+            </address>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <span class="info-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
+          <div>
+            <strong>Teléfono</strong>
+            <!--
+              href="tel:+543512484288": clic directo para llamar desde móvil.
+              Formato +5435... = formato internacional correcto para Argentina.
+            -->
+            <a href="tel:+543512484288" itemprop="telephone" style="color:inherit;text-decoration:none;"
+              aria-label="Llamar a Amarena Pastelería al (351) 248-4288">
+              (351) 248-4288
+            </a>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <span class="info-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:hola@amarenapasteleria.com" itemprop="email" style="color:inherit;text-decoration:none;">
+              hola@amarenapasteleria.com
+            </a>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <span class="info-icon"><i class="fa-solid fa-clock" aria-hidden="true"></i></span>
+          <div>
+            <strong>Horario</strong>
+            <!--
+              datetime="Mo-Sa 09:00-19:00": formato machine-readable.
+              itemprop="openingHours": formato estándar Schema.org.
+            -->
+            <time datetime="Mo-Sa 09:00-19:00" itemprop="openingHours">
+              Lun – Sáb · 9:00 a 19:00hs
+            </time>
+          </div>
+        </div>
+      </div>
+
+      <!--
+        FORMULARIO NETLIFY FORMS:
+        data-netlify="true" → Netlify intercepta el POST automáticamente.
+        data-netlify-honeypot → campo trampa invisible para bots.
+        
+        CONFIGURAR EN NETLIFY:
+        Dashboard → Forms → contacto-amarena → Notifications → Email
+        
+        TRACKING DE CONVERSIONES: el envío del form dispara evento GA4
+        en main.js (ver sección de analytics en el JS).
+      -->
+      <form class="contacto-form reveal" name="contacto-amarena" method="POST" data-netlify="true"
+        data-netlify-honeypot="bot-field" aria-label="Formulario de contacto y pedidos de Amarena Pastelería">
+
+        <input type="hidden" name="form-name" value="contacto-amarena">
+        <p style="display:none;" aria-hidden="true">
+          <label>No completar si sos humano: <input name="bot-field" tabindex="-1"></label>
+        </p>
+
+        <div class="form-group">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required
+            autocomplete="given-name" aria-required="true">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="tu@correo.com" required autocomplete="email"
+              aria-required="true">
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono <span style="font-weight:400;opacity:0.7;">(opcional)</span></label>
+            <input type="tel" id="telefono" name="telefono" placeholder="(351) 000-0000" autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="servicio">¿Qué necesitás?</label>
+          <select id="servicio" name="servicio" required aria-required="true">
+            <option value="" disabled selected>Seleccioná una opción</option>
+            <option value="torta-personalizada">Torta personalizada para evento</option>
+            <option value="tortas-15">Torta de 15 años</option>
+            <option value="mesa-dulce">Mesa dulce para evento</option>
+            <option value="catering">Catering para evento</option>
+            <option value="tartas">Tartas artesanales</option>
+            <option value="petit-fours">Box de Petit Fours</option>
+            <option value="consulta">Consulta general</option>
+            <option value="otros">Otros</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="mensaje">Contanos sobre tu proyecto</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Fecha del evento, cantidad de personas, gustos, ideas..."
+            required aria-required="true" aria-describedby="mensaje-hint">
+          </textarea>
+          <small id="mensaje-hint" style="opacity:0.7;font-size:0.8rem;margin-top:0.25rem;display:block;">
+            Cuanto más detalle nos des, más preciso será el presupuesto.
+          </small>
+        </div>
+
+        <button type="submit" class="btn-send">
+          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+          Enviar Mensaje
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true"
+    aria-label="Imagen ampliada de Amarena Pastelería" hidden>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar imagen ampliada"
+        type="button">&times;</button>
+      <img src="" alt="Creación artesanal de Amarena Pastelería Córdoba" id="lightboxImg" width="800" height="600">
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BOTÓN FLOTANTE WHATSAPP
+       
+       NAP Consistency: +5493512484288 = mismo número que en GBP y Schema.
+       El mensaje preescrito reduce la fricción y mejora la conversión.
+       Evento de conversión GA4 registrado en main.js.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <a href="https://wa.me/5493512484288?text=Hola!%20Quisiera%20hacer%20una%20consulta%20sobre%20productos%20de%20Amarena%20Pastelería"
+    class="whatsapp-float" target="_blank" rel="noopener noreferrer"
+    aria-label="Contactar a Amarena Pastelería por WhatsApp — abre en nueva ventana" id="whatsappBtn">
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="32"
+      height="32">
+      <path
+        d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.253 1.408 1.412-5.248-0.319-0.524c-1.343-2.188-2.050-4.706-2.050-7.273 0-7.589 6.178-13.767 13.767-13.767s13.767 6.178 13.767 13.767c0 7.589-6.178 13.767-13.767 13.767zM23.204 19.567c-0.401-0.201-2.366-1.168-2.732-1.302s-0.633-0.201-0.899 0.201c-0.266 0.401-1.033 1.302-1.267 1.569s-0.467 0.301-0.868 0.101c-0.401-0.201-1.691-0.623-3.219-1.987-1.19-1.061-1.994-2.372-2.228-2.773s-0.025-0.618 0.176-0.818c0.181-0.179 0.401-0.467 0.602-0.701s0.267-0.401 0.401-0.668c0.133-0.267 0.067-0.501-0.034-0.701s-0.899-2.167-1.232-2.967c-0.324-0.78-0.653-0.674-0.899-0.687-0.232-0.012-0.498-0.015-0.764-0.015s-0.701 0.1-1.067 0.501c-0.367 0.401-1.4 1.368-1.4 3.335s1.433 3.869 1.633 4.135c0.201 0.267 2.827 4.318 6.85 6.055 0.957 0.413 1.705 0.659 2.288 0.844 0.962 0.305 1.837 0.262 2.528 0.159 0.771-0.115 2.366-0.968 2.699-1.902s0.333-1.736 0.233-1.902c-0.1-0.167-0.367-0.267-0.768-0.467z" />
+    </svg>
+  </a>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Seguinos en</h4>
+        <div class="social-links">
+          <!--
+            rel="me": señal de identidad cruzada para Google (E-E-A-T).
+            Indica que esa cuenta de Instagram pertenece al mismo negocio.
+          -->
+          <a href="https://www.instagram.com/amarenacba21/" class="social-link" target="_blank"
+            rel="noopener noreferrer me"
+            aria-label="Instagram de Amarena Pastelería @amarenacba21 — abre en nueva ventana">
+            <span class="s-icon"><i class="fa-brands fa-instagram" aria-hidden="true"></i></span>
+            @amarenacba21
+          </a>
+
+          <a href="https://wa.me/5493512484288" class="social-link" target="_blank" rel="noopener noreferrer"
+            aria-label="WhatsApp de Amarena Pastelería — abre en nueva ventana">
+            <span class="s-icon"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col footer-info">
+        <div class="f-logo">
+          <i class="fa-solid fa-cake-candles" aria-hidden="true"></i>
+          Amarena Pastelería
+        </div>
+        <p>
+          © 2026 Amarena Pastelería<br>
+          Hecho con amor y dedicación en Córdoba<br><br>
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i> B° Empalme, Córdoba, Argentina<br>
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
+          <a href="tel:+543512484288" style="color:inherit;text-decoration:none;" aria-label="Llamar al (351) 248-4288">
+            (351) 248-4288
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Amarena Pastelería · Todos los derechos reservados · Hecho con ❤️ y mucha azúcar en Córdoba</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       JAVASCRIPT
+       
+       defer vs async:
+       - defer: descarga en paralelo, ejecuta DESPUÉS de parsear el DOM
+       - async: descarga en paralelo, ejecuta APENAS termina de bajar
+       
+       Para scripts propios que dependen del DOM → siempre usar defer.
+       Para analytics externos (GA4, GTM) → usar async.
+       
+       NUNCA cargar scripts sin defer/async en el <head> → bloquea render.
+  ═══════════════════════════════════════════════════════════════════ -->
+  <script src="assets/js/main.js" defer></script>
+
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+# ══════════════════════════════════════════════════════
+# robots.txt — Amarena Pastelería
+# https://amarenapasteleria.com.ar/robots.txt
+#
+# Instrucciones para los crawlers (bots) de motores
+# de búsqueda. Archivo leído ANTES de indexar el sitio.
+#
+# IMPORTANTE: Este archivo es PÚBLICO y visible por cualquiera.
+# No usarlo para "ocultar" URLs sensibles — usar auth o noindex.
+# ══════════════════════════════════════════════════════
+
+# ──────────────────────────────────────────────────────
+# Regla 1: Googlebot (el más importante)
+# Acceso TOTAL al sitio — queremos que indexe TODO.
+# ──────────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+# ──────────────────────────────────────────────────────
+# Regla 2: Googlebot-Image
+# Acceso a imágenes para Google Images.
+# Las imágenes de productos pueden traer tráfico
+# adicional desde búsquedas de imágenes.
+# ──────────────────────────────────────────────────────
+User-agent: Googlebot-Image
+Allow: /assets/img/
+
+# ──────────────────────────────────────────────────────
+# Regla 3: Bingbot
+# Bing tiene ~5% de market share en AR. Vale la pena.
+# ──────────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+
+# ──────────────────────────────────────────────────────
+# Regla 4: Todos los demás bots
+# Allow: / = indexar todo el sitio
+# ──────────────────────────────────────────────────────
+User-agent: *
+Allow: /
+
+# ──────────────────────────────────────────────────────
+# Bloquear rutas que NO deben indexarse
+# (por ahora no hay rutas privadas, pero se documentan
+# para cuando se agreguen en el futuro)
+# ──────────────────────────────────────────────────────
+# User-agent: *
+# Disallow: /admin/
+# Disallow: /panel/
+# Disallow: /api/
+# Disallow: /*.json$
+# Disallow: /gracias        # Página de "gracias" post-formulario
+
+# ──────────────────────────────────────────────────────
+# Sitemap: obligatorio declararlo aquí.
+# Los crawlers lo usan para encontrar todas las URLs.
+# Agregar TODOS los sitemaps si hay más de uno.
+# ──────────────────────────────────────────────────────
+Sitemap: https://amarenapasteleria.com.ar/sitemap.xml
+
+# ──────────────────────────────────────────────────────
+# Crawl-delay: pausa entre requests del bot.
+# 1 segundo es un valor seguro para hosting compartido.
+# Netlify no necesita esto, pero es buena práctica documentarlo.
+# Googlebot ignora crawl-delay, pero Bing/otros sí lo respetan.
+# ──────────────────────────────────────────────────────
+# Crawl-delay: 1

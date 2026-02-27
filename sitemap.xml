@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ══════════════════════════════════════════════════════════════════
+  sitemap.xml — Amarena Pastelería
+  https://amarenapasteleria.com.ar/sitemap.xml
+  
+  PROPÓSITO:
+  Le dice a Google exactamente qué URLs existen, qué imágenes
+  tiene cada página y cuándo se modificó por última vez.
+  
+  CÓMO ENVIAR A GOOGLE:
+  1. Google Search Console → Sitemaps → Agregar nuevo sitemap
+  2. Ingresar: sitemap.xml
+  3. Verificar que no haya errores de parseo
+  
+  ACTUALIZAR CUÁNDO:
+  - Se agregue una página nueva
+  - Se hagan cambios importantes de contenido
+  - Mensualmente como mínimo (actualizar <lastmod>)
+  
+  INCLUIR IMÁGENES en el sitemap es fundamental para Google Images.
+  Las imágenes en background-image CSS NO son detectadas automáticamente.
+  ══════════════════════════════════════════════════════════════════
+-->
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xsi:schemaLocation="
+    http://www.sitemaps.org/schemas/sitemap/0.9
+    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+    http://www.google.com/schemas/sitemap-image/1.1
+    http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd
+  ">
+
+  <!--
+    PÁGINA PRINCIPAL
+    priority="1.0": máxima prioridad. Solo para la home page.
+    changefreq="monthly": correcta para un sitio de pastelería.
+    
+    NOTA: Google ignora changefreq y priority para decisiones de crawl,
+    pero Bing y otros motores sí los usan. Mantenerlos es buena práctica.
+  -->
+  <url>
+    <loc>https://amarenapasteleria.com.ar/</loc>
+    <lastmod>2026-02-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+
+    <!-- Imagen principal del sitio (OG image) -->
+    <image:image>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/og-image.jpg</image:loc>
+      <image:title>Amarena Pastelería - Tortas artesanales en Córdoba Argentina</image:title>
+      <image:caption>Pastelería artesanal en Córdoba — tortas personalizadas, mesa dulce y postres artesanales</image:caption>
+    </image:image>
+
+    <!-- Torta de cumpleaños personalizada -->
+    <image:image>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/torta-cumpleanos-personalizada-cordoba.webp</image:loc>
+      <image:title>Torta de cumpleaños personalizada artesanal Córdoba</image:title>
+      <image:caption>Torta de cumpleaños con decoración personalizada única - Amarena Pastelería Córdoba</image:caption>
+    </image:image>
+
+    <!-- Mesa dulce para eventos -->
+    <image:image>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/mesadulce.webp</image:loc>
+      <image:title>Mesa dulce artesanal para eventos Córdoba</image:title>
+      <image:caption>Mesa dulce completa con postres artesanales para casamientos y eventos en Córdoba</image:caption>
+    </image:image>
+
+    <!-- Lemon Pie artesanal -->
+    <image:image>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/lemonpie.webp</image:loc>
+      <image:title>Lemon Pie artesanal con merengue italiano Córdoba</image:title>
+      <image:caption>Lemon Pie con merengue italiano y crema de limón natural - Pastelería Córdoba</image:caption>
+    </image:image>
+
+    <!-- Pavlova con frutos rojos -->
+    <image:image>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/pavlova.webp</image:loc>
+      <image:title>Pavlova artesanal con frutos rojos Córdoba</image:title>
+      <image:caption>Pavlova con merengue crujiente artesanal y frutos rojos frescos - Amarena Pastelería</image:caption>
+    </image:image>
+
+    <!-- Marquise de chocolate -->
+    <image:image>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/marquise-chocolate-cordoba.webp</image:loc>
+      <image:title>Marquise de chocolate artesanal con dulce de leche Córdoba</image:title>
+      <image:caption>Marquise de chocolate semiamargo con dulce de leche - Amarena Pastelería Córdoba</image:caption>
+    </image:image>
+
+    <!-- Rogel artesanal -->
+    <image:image>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/rogel-artesanal-cordoba.webp</image:loc>
+      <image:title>Rogel artesanal con dulce de leche capas hojaldre Córdoba</image:title>
+      <image:caption>Rogel artesanal multicapa con dulce de leche - Pastelería Córdoba</image:caption>
+    </image:image>
+
+    <!-- Torta de 15 años -->
+    <image:image>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/torta15.webp</image:loc>
+      <image:title>Torta de 15 años personalizada Córdoba Argentina</image:title>
+      <image:caption>Torta de 15 años con diseño elegante y personalizado - Amarena Pastelería Córdoba</image:caption>
+    </image:image>
+
+    <!-- Box Petit Fours -->
+    <image:image>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/boxpetifur.webp</image:loc>
+      <image:title>Box de Petit Fours artesanales premium Córdoba</image:title>
+      <image:caption>Box de petit fours y bocados dulces artesanales premium - Amarena Pastelería</image:caption>
+    </image:image>
+
+    <!-- Pasta Frola - Tartas -->
+    <image:image>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/pastafrola.webp</image:loc>
+      <image:title>Pasta Frola artesanal Córdoba</image:title>
+      <image:caption>Pasta Frola con dulce de membrillo sobre masa casera - Pastelería Córdoba</image:caption>
+    </image:image>
+
+    <!-- Tortapersonalizada -->
+    <image:image>
+      <image:loc>https://amarenapasteleria.com.ar/assets/img/tortapersonalizada.webp</image:loc>
+      <image:title>Torta personalizada artesanal para eventos Córdoba</image:title>
+      <image:caption>Torta personalizada para bodas y celebraciones especiales - Amarena Pastelería Córdoba</image:caption>
+    </image:image>
+
+  </url>
+
+  <!--
+    ══════════════════════════════════════════════════════════════
+    PÁGINAS FUTURAS — Descomentar cuando se creen
+    
+    ESTRATEGIA: cada servicio merece su propia URL para rankear
+    independientemente para esa keyword específica.
+    
+    "tortas-personalizadas-cordoba" rankeará para esa búsqueda.
+    "mesa-dulce-cordoba" rankeará para esa otra búsqueda.
+    Una sola página intentando rankear para todo = menos efectiva.
+    ══════════════════════════════════════════════════════════════
+  -->
+
+  <!--
+  <url>
+    <loc>https://amarenapasteleria.com.ar/tortas-personalizadas-cordoba/</loc>
+    <lastmod>2026-02-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://amarenapasteleria.com.ar/mesa-dulce-cordoba/</loc>
+    <lastmod>2026-02-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://amarenapasteleria.com.ar/tartas-artesanales-cordoba/</loc>
+    <lastmod>2026-02-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://amarenapasteleria.com.ar/tortas-15-anos-cordoba/</loc>
+    <lastmod>2026-02-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://amarenapasteleria.com.ar/blog/</loc>
+    <lastmod>2026-02-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  -->
+
+</urlset>

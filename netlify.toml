@@ -1,0 +1,245 @@
+# ══════════════════════════════════════════════════════════════
+# netlify.toml — Amarena Pastelería
+#
+# Archivo de configuración de Netlify.
+# Controla redirects, headers HTTP de seguridad, y configuración
+# del build. Este archivo va en la RAÍZ del repositorio.
+#
+# DOCUMENTACIÓN: https://docs.netlify.com/configure-builds/file-based-configuration/
+# ══════════════════════════════════════════════════════════════
+
+
+# ──────────────────────────────────────────────────────────────
+# SECCIÓN: BUILD
+# Configuración del proceso de build (deploy).
+# Para sitio HTML puro, no hay build command.
+# ──────────────────────────────────────────────────────────────
+[build]
+  # publish: directorio que Netlify sirve como sitio web.
+  # Para sitio HTML puro en la raíz del repo:
+  publish = "."
+
+  # command: comando de build (vacío para HTML puro)
+  # Si en el futuro se usa un bundler (Vite, Webpack, etc):
+  # command = "npm run build"
+  # publish = "dist"
+
+
+# ──────────────────────────────────────────────────────────────
+# SECCIÓN: REDIRECTS
+# Los redirects 301 son fundamentales para el SEO.
+# Deben implementarse ANTES de agregar el dominio a Search Console.
+#
+# PRIORIDAD: van en orden, el primer match gana.
+# force = true: aplica el redirect incluso si el archivo existe.
+# ──────────────────────────────────────────────────────────────
+
+# ── REDIRECT 1: HTTP → HTTPS (seguridad + SEO)
+# Google penaliza sitios HTTP desde 2018.
+# HTTPS es señal de ranking positiva.
+# El certificado SSL lo genera Netlify automáticamente (Let's Encrypt).
+[[redirects]]
+  from   = "http://amarenapasteleria.com.ar/*"
+  to     = "https://amarenapasteleria.com.ar/:splat"
+  status = 301
+  force  = true
+
+# ── REDIRECT 2: www → sin www (canonicalización)
+# Elegir UNA forma canónica y redirigir siempre hacia ella.
+# www → sin www es la convención más común para sitios nuevos.
+# IMPORTANTE: debe coincidir con el canonical en el HTML y con GBP.
+[[redirects]]
+  from   = "https://www.amarenapasteleria.com.ar/*"
+  to     = "https://amarenapasteleria.com.ar/:splat"
+  status = 301
+  force  = true
+
+# ── REDIRECT 3: www HTTP → HTTPS sin www (caso combinado)
+[[redirects]]
+  from   = "http://www.amarenapasteleria.com.ar/*"
+  to     = "https://amarenapasteleria.com.ar/:splat"
+  status = 301
+  force  = true
+
+# ── REDIRECT 4: URL de Netlify → dominio propio
+# Redirigir la URL de staging de Netlify hacia el dominio real.
+# Evita que Google indexe el subdominio de Netlify como contenido duplicado.
+[[redirects]]
+  from   = "https://tourmaline-gingersnap-bcd05d.netlify.app/*"
+  to     = "https://amarenapasteleria.com.ar/:splat"
+  status = 301
+  force  = true
+
+# ── REDIRECT 5: Trailing slash
+# Normalizar URLs con y sin barra final.
+# /servicios/ → /servicios (sin barra) = consistencia
+# Comentado porque para single-page no aplica mucho,
+# pero es buena práctica documentarlo para cuando haya subpáginas.
+# [[redirects]]
+#   from   = "/*/"
+#   to     = "/:splat"
+#   status = 301
+
+# ── REDIRECT 6: Páginas futuras útiles
+# Si se crean estas páginas en el futuro, los redirects
+# ya estarán listos para el contenido que se cree.
+# [[redirects]]
+#   from   = "/tortas"
+#   to     = "/tortas-personalizadas-cordoba/"
+#   status = 301
+
+# ── REDIRECT 7: Página 404 personalizada
+# Una buena página 404 mantiene al usuario en el sitio.
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+
+# ──────────────────────────────────────────────────────────────
+# SECCIÓN: HEADERS
+# Los headers HTTP de seguridad son factores de confianza
+# para Google y protegen al sitio de ataques comunes.
+#
+# PROBAR EN: https://securityheaders.com/
+# META: obtener calificación A o A+
+# ──────────────────────────────────────────────────────────────
+
+# ── Headers para TODOS los archivos
+[[headers]]
+  for = "/*"
+  [headers.values]
+
+    # ── X-Frame-Options
+    # Previene que el sitio sea embebido en iframes de otros dominios.
+    # Protege contra ataques de "Clickjacking".
+    # DENY: no permitir en ningún iframe (más estricto)
+    # SAMEORIGIN: permitir solo desde el mismo dominio
+    X-Frame-Options = "DENY"
+
+    # ── X-Content-Type-Options
+    # Previene que el browser "adivine" el tipo de contenido (MIME sniffing).
+    # Protege contra ataques donde scripts disfrazados de imágenes se ejecutan.
+    X-Content-Type-Options = "nosniff"
+
+    # ── X-XSS-Protection
+    # Activa el filtro XSS built-in de browsers más antiguos.
+    # Los browsers modernos usan CSP en su lugar, pero incluirlo
+    # no hace daño y protege usuarios con browsers legacy.
+    X-XSS-Protection = "1; mode=block"
+
+    # ── Referrer-Policy
+    # Controla qué información de la URL de origen se envía
+    # cuando un usuario hace clic en un link hacia afuera.
+    # strict-origin-when-cross-origin: envía el origen (no la URL completa)
+    # cuando navega a HTTPS. No envía nada si baja de HTTPS a HTTP.
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # ── Permissions-Policy (reemplaza Feature-Policy)
+    # Controla qué APIs del browser puede usar la página.
+    # Desactivar las que no se usan reduce la superficie de ataque.
+    # geolocation=(): deshabilitar acceso a GPS (no necesario para pastelería)
+    # camera=(): deshabilitar cámara
+    # microphone=(): deshabilitar micrófono
+    Permissions-Policy = "geolocation=(), camera=(), microphone=(), payment=(), usb=()"
+
+    # ── Strict-Transport-Security (HSTS)
+    # Le dice al browser que SIEMPRE use HTTPS para este dominio.
+    # max-age=31536000 = 1 año en segundos
+    # includeSubDomains: aplicar a subdominios también
+    # preload: solicitar inclusión en el HSTS preload list de browsers
+    # ADVERTENCIA: Una vez activado, es difícil revertir. Solo activar
+    # cuando estés 100% seguro de que el sitio siempre tendrá HTTPS.
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+    # ── Content-Security-Policy (CSP)
+    # El header de seguridad más importante. Define desde qué
+    # dominios se puede cargar contenido. Previene XSS y data injection.
+    #
+    # DESGLOSE:
+    # default-src 'self' → por defecto, solo cargar del mismo dominio
+    # script-src: scripts permitidos (Google Analytics, propio)
+    # style-src: estilos permitidos (Google Fonts, propio)
+    # font-src: fuentes permitidas (Google Fonts)
+    # img-src: imágenes (propio, datos inline, Google para tracking)
+    # connect-src: requests XHR/fetch (Google Analytics)
+    # frame-src: iframes permitidos (Google Maps)
+    # object-src: plugins (ninguno - previene Flash y similares)
+    #
+    # AJUSTAR si se agregan recursos de terceros adicionales.
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.analytics.google.com https://stats.g.doubleclick.net; frame-src https://www.google.com/maps/; object-src 'none'; base-uri 'self'; form-action 'self';"
+
+# ── Cache Headers para assets estáticos
+# Los assets con hash en el nombre (generados por bundlers)
+# se pueden cachear indefinitely. Sin bundler, usar tiempos cortos.
+[[headers]]
+  for = "/assets/css/*"
+  [headers.values]
+    # max-age=86400 = 1 día. Cambiar a 31536000 cuando se use
+    # cache busting (hash en nombre de archivo).
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/assets/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/assets/img/*"
+  [headers.values]
+    # Las imágenes son las más pesadas y cambian poco.
+    # 1 año de cache para imágenes.
+    # Si se cambia una imagen, cambiar el nombre del archivo.
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    # Las fuentes nunca cambian. Cache permanente.
+    Cache-Control = "public, max-age=31536000, immutable"
+    # CORS necesario para fuentes en algunos browsers
+    Access-Control-Allow-Origin = "*"
+
+# ── Headers para HTML (sin cache o cache muy corto)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    # El HTML nunca debe cachearse agresivamente.
+    # Los bots de Google re-visitan el HTML para ver cambios.
+    # must-revalidate: el browser siempre verifica si hay versión nueva.
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# ── Headers para sitemap y robots (acceso fresco siempre)
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "application/xml; charset=utf-8"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+    Content-Type = "text/plain; charset=utf-8"
+
+
+# ──────────────────────────────────────────────────────────────
+# SECCIÓN: EDGE FUNCTIONS (Opcional, avanzado)
+# Para funciones serverless en el edge de Netlify.
+# Útil en el futuro para:
+# - API de contacto con rate limiting
+# - Generación de OG images dinámicas
+# - A/B testing de landing pages
+# ──────────────────────────────────────────────────────────────
+# [functions]
+#   directory = "netlify/functions"
+
+
+# ──────────────────────────────────────────────────────────────
+# SECCIÓN: FORMS (Netlify Forms)
+# Netlify maneja formularios automáticamente sin backend.
+# Solo se necesita data-netlify="true" en el <form> del HTML.
+# Las notificaciones se configuran en el panel de Netlify.
+# ──────────────────────────────────────────────────────────────
+# No se necesita configuración adicional en netlify.toml
+# para formularios básicos. El HTML con data-netlify="true" es suficiente.
