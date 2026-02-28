@@ -368,19 +368,16 @@
        NOTA: async garantiza que GA4 NO bloquea el render.
   ═══════════════════════════════════════════════════════════════════ -->
   <!--
-    TODO: Descomentar y completar con el Measurement ID real
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX', {
-        send_page_view: true,
-        anonymize_ip: true
-      });
-    </script>
-  -->
+    TODO: Descomentar y completar con el Measurement ID real-->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SNZG630X23"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-SNZG630X23');
+  </script>
+
 
 </head>
 
@@ -927,8 +924,10 @@
           <span class="info-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
           <div>
             <strong>Email</strong>
-            <a href="/cdn-cgi/l/email-protection#6b0304070a2b0a060a190e050a1b0a181f0e070e19020a45080406" itemprop="email" style="color:inherit;text-decoration:none;">
-              <span class="__cf_email__" data-cfemail="dfb7b0b3be9fbeb2beadbab1beafbeacabbab3baadb6bef1bcb0b2">[email&#160;protected]</span>
+            <a href="/cdn-cgi/l/email-protection#6b0304070a2b0a060a190e050a1b0a181f0e070e19020a45080406"
+              itemprop="email" style="color:inherit;text-decoration:none;">
+              <span class="__cf_email__"
+                data-cfemail="dfb7b0b3be9fbeb2beadbab1beafbeacabbab3baadb6bef1bcb0b2">[email&#160;protected]</span>
             </a>
           </div>
         </div>
@@ -1103,4 +1102,4 @@
        Para analytics externos (GA4, GTM) → usar async.
        
        NUNCA cargar scripts sin defer/async en el <head> → bloquea render.
-  ═════════════════════════════════════════�
+  ═════════════════════════════════════════�
