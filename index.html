@@ -131,12 +131,13 @@
     crossorigin en fonts.gstatic.com: las fuentes requieren CORS.
     Sin crossorigin, el browser haría dos conexiones separadas.
   -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Beau+Rivage&display=block"
-    rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Beau+Rivage&display=block"
+    rel="stylesheet">
+
 
   <!--
     Font Awesome via CDN.
@@ -1154,7 +1155,7 @@
     </div>
   </footer>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
+  <!--
        JAVASCRIPT
        
        defer vs async:
@@ -1164,5 +1165,11 @@
        Para scripts propios que dependen del DOM → siempre usar defer.
        Para analytics externos (GA4, GTM) → usar async.
        
-       NUNCA cargar scripts sin defer/async en el <head> → bloquea render.
-  ═════════════════════════════════════════�
+       NUNCA cargar scripts sin defer/async en el <head> → bloquea render.-->
+
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script defer src="assets/js/main.js"></script>
+</body>
+
+</html>
