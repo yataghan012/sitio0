@@ -1,0 +1,7 @@
+{
+  "name": "Amarena Pastelería Artesanal Córdoba",
+  "description": "Pastelería artesanal en Córdoba. Tortas personalizadas para cumpleaños y bodas, mesa dulce, tartas y pavlova. Ingredientes selectos, hecho a mano.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,36 @@
+# ══════════════════════════════════════════════════════
+# robots.txt — Amarena Pastelería Artesanal Córdoba
+# https://amarenapasteleria.com/robots.txt
+#
+# Instrucciones para los crawlers (bots) de motores
+# de búsqueda. Archivo leído ANTES de indexar el sitio.
+# ══════════════════════════════════════════════════════
+
+# ──────────────────────────────────────────────────────
+# Regla 1: Googlebot (Acceso TOTAL al sitio)
+# ──────────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+# ──────────────────────────────────────────────────────
+# Regla 2: Googlebot-Image (Acceso a imágenes para Google Images)
+# ──────────────────────────────────────────────────────
+User-agent: Googlebot-Image
+Allow: /assets/img/
+
+# ──────────────────────────────────────────────────────
+# Regla 3: Bingbot
+# ──────────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+
+# ──────────────────────────────────────────────────────
+# Regla 4: Todos los demás bots de búsqueda
+# ──────────────────────────────────────────────────────
+User-agent: *
+Allow: /
+
+# ──────────────────────────────────────────────────────
+# Sitemap oficial
+# ──────────────────────────────────────────────────────
+Sitemap: https://amarenapasteleria.com/sitemap.xml
