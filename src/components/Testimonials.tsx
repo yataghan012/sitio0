@@ -25,13 +25,6 @@ export const Testimonials: React.FC = () => {
         <p className="section-desc">
           La satisfacción de quienes confiaron en nuestras manos artesanas para sus cumpleaños, bodas y eventos en Córdoba Capital.
         </p>
-
-        <div className="reviews-summary-badge" role="status" aria-label="Calificación promedio 5.0 sobre 5 estrellas">
-          <span className="stars-gold" aria-hidden="true">★★★★★</span>
-          <span className="rating-score">5.0 de 5.0</span>
-          <span className="rating-divider">·</span>
-          <span className="rating-count">+48 opiniones de clientes felices en Córdoba</span>
-        </div>
       </div>
 
       <div className="testimonios-grid">
