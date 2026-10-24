@@ -20,18 +20,10 @@ export const Faq: React.FC = () => {
           <details
             key={faq.id}
             className="faq-item"
-            itemScope
-            itemProp="mainEntity"
-            itemType="https://schema.org/Question"
           >
-            <summary itemProp="name">{faq.question}</summary>
-            <div
-              itemScope
-              itemProp="acceptedAnswer"
-              itemType="https://schema.org/Answer"
-            >
+            <summary>{faq.question}</summary>
+            <div>
               <div
-                itemProp="text"
                 dangerouslySetInnerHTML={{ __html: faq.answerHtml }}
               />
             </div>

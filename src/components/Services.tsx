@@ -20,8 +20,6 @@ export const Services: React.FC = () => {
           <article
             key={service.id}
             className="servicio-card"
-            itemScope
-            itemType="https://schema.org/Service"
           >
             {service.imageUrl ? (
               <img
@@ -38,8 +36,8 @@ export const Services: React.FC = () => {
                 {service.icon || '📦'}
               </span>
             )}
-            <h3 itemProp="name">{service.title}</h3>
-            <p itemProp="description">{service.description}</p>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
           </article>
         ))}
       </div>

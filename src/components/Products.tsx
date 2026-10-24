@@ -73,8 +73,6 @@ export const Products: React.FC<ProductsProps> = ({
               tabIndex={0}
               aria-haspopup={product.actionType === 'tartas' ? 'dialog' : undefined}
               aria-label={`${product.title} - Ver detalle`}
-              itemScope
-              itemType="https://schema.org/Product"
               onClick={() => handleProductClick(product)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -92,14 +90,13 @@ export const Products: React.FC<ProductsProps> = ({
                     decoding="async"
                     width={400}
                     height={260}
-                    itemProp="image"
                     className="producto-img-element"
                   />
                 </div>
               )}
               <div className="producto-body">
-                <h3 itemProp="name">{product.title}</h3>
-                <p itemProp="description">{product.description}</p>
+                <h3>{product.title}</h3>
+                <p>{product.description}</p>
                 {product.actionType === 'tartas' && (
                   <span className="producto-price" style={{ fontSize: '0.8rem', letterSpacing: '1px', textTransform: 'uppercase' }}>
                     Ver Variedades ✦

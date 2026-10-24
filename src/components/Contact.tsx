@@ -118,10 +118,7 @@ export const Contact: React.FC = () => {
       </div>
 
       <div className="contacto-wrap">
-        <div className="contacto-info" itemScope itemType="https://schema.org/Bakery">
-          <meta itemProp="name" content="Amarena Pastelería" />
-          <meta itemProp="priceRange" content="$$" />
-
+        <div className="contacto-info">
           <h3>Visitanos o escribínos</h3>
           <p>
             Estamos disponibles para atenderte en persona o a distancia. Nos interesa conocer tu proyecto y crear algo memorable para tu celebración.
@@ -133,10 +130,10 @@ export const Contact: React.FC = () => {
             </span>
             <div>
               <strong>Ubicación</strong>
-              <address itemProp="address" itemScope itemType="https://schema.org/PostalAddress" style={{ fontStyle: 'normal' }}>
-                <span itemProp="streetAddress">B° Empalme</span>,{' '}
-                <span itemProp="addressLocality">Córdoba</span>,{' '}
-                <span itemProp="addressCountry">Argentina</span>
+              <address style={{ fontStyle: 'normal' }}>
+                <span>B° Empalme</span>,{' '}
+                <span>Córdoba</span>,{' '}
+                <span>Argentina</span>
               </address>
             </div>
           </div>
@@ -149,7 +146,6 @@ export const Contact: React.FC = () => {
               <strong>Teléfono</strong>
               <a
                 href={`tel:${CONTACT_INFO.phoneRaw}`}
-                itemProp="telephone"
                 style={{ color: 'inherit', textDecoration: 'none' }}
                 aria-label={`Llamar a Amarena Pastelería al ${CONTACT_INFO.phone}`}
               >
@@ -166,7 +162,6 @@ export const Contact: React.FC = () => {
               <strong>Email</strong>
               <a
                 href={`mailto:${CONTACT_INFO.email}`}
-                itemProp="email"
                 style={{ color: 'inherit', textDecoration: 'none' }}
               >
                 {CONTACT_INFO.email}
@@ -180,7 +175,7 @@ export const Contact: React.FC = () => {
             </span>
             <div>
               <strong>Horario</strong>
-              <time dateTime="Mo-Sa 09:00-19:00" itemProp="openingHours">
+              <time dateTime="Mo-Sa 09:00-19:00">
                 {CONTACT_INFO.hours}
               </time>
             </div>

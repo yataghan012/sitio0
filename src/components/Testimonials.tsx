@@ -33,8 +33,6 @@ export const Testimonials: React.FC = () => {
           <article
             key={t.id}
             className="testimonio-card"
-            itemScope
-            itemType="https://schema.org/Review"
           >
             <div className="testimonio-stars" aria-label={`Calificación de ${t.rating} de 5 estrellas`}>
               {Array.from({ length: t.rating }).map((_, i) => (
@@ -42,7 +40,7 @@ export const Testimonials: React.FC = () => {
               ))}
             </div>
 
-            <blockquote className="testimonio-comment" itemProp="reviewBody">
+            <blockquote className="testimonio-comment">
               “{t.comment}”
             </blockquote>
 
@@ -51,18 +49,12 @@ export const Testimonials: React.FC = () => {
                 {t.name.charAt(0)}
               </div>
               <div>
-                <h3 className="testimonio-author" itemProp="author" itemScope itemType="https://schema.org/Person">
-                  <span itemProp="name">{t.name}</span>
+                <h3 className="testimonio-author">
+                  <span>{t.name}</span>
                 </h3>
                 <p className="testimonio-meta">
                   <span>{t.roleOrOccasion}</span> · <em>{t.neighborhood}</em>
                 </p>
-                <meta itemProp="datePublished" content={t.date} />
-                <div itemProp="reviewRating" itemScope itemType="https://schema.org/Rating" className="sr-only">
-                  <meta itemProp="ratingValue" content={String(t.rating)} />
-                  <meta itemProp="bestRating" content="5" />
-                  <meta itemProp="worstRating" content="1" />
-                </div>
               </div>
             </div>
           </article>
