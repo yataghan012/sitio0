@@ -3,13 +3,13 @@
   --cream-dark: #e8ddd0;
   --brown-deep: #3b2314;
   --brown-mid: #6b4226;
-  --brown-light: #9c7b5a;
-  --rose: #c0515a;
-  --rose-light: #d97a82;
+  --brown-light: #6e4827;
+  --rose: #a62f39;
+  --rose-light: #c75661;
   --gold: #b8956a;
   --gold-light: #d4b48c;
   --text: #4a3728;
-  --text-light: #7a6355;
+  --text-light: #594334;
 }
 
 * {
@@ -1270,7 +1270,7 @@ footer {
 }
 
 .footer-info p {
-  color: rgba(245, 239, 230, 0.5);
+  color: rgba(245, 239, 230, 0.85);
   font-size: 0.84rem;
   line-height: 2;
 }
@@ -1279,12 +1279,12 @@ footer {
   max-width: 1000px;
   margin: 3rem auto 0;
   padding-top: 2rem;
-  border-top: 1px solid rgba(184, 149, 106, 0.15);
+  border-top: 1px solid rgba(184, 149, 106, 0.3);
   text-align: center;
 }
 
 .footer-bottom p {
-  color: rgba(245, 239, 230, 0.35);
+  color: rgba(245, 239, 230, 0.75);
   font-size: 0.78rem;
   line-height: 1.9;
 }

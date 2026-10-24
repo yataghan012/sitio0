@@ -62,14 +62,14 @@ export const SERVICES: ServiceItem[] = [
     id: 's1',
     title: 'Tortas Personalizadas para Cumpleaños y Bodas',
     description: 'Diseñamos y creamos tortas únicas para cumpleaños, bodas y celebraciones especiales en Córdoba según tu visión y gustos.',
-    imageUrl: '/assets/img/torta-personalizada-artesanal-cordoba.webp',
+    imageUrl: '/assets/img/torta-personalizada-artesanal-cordoba-sm.webp',
     alt: 'Torta personalizada artesanal en Córdoba'
   },
   {
     id: 's2',
     title: 'Mesa Dulce para Eventos',
     description: 'Armamos mesas dulces completas con variedad de postres artesanales para que tu evento en Córdoba sea inolvidable.',
-    imageUrl: '/assets/img/mesa-dulce-artesanal-eventos-cordoba.webp',
+    imageUrl: '/assets/img/mesa-dulce-artesanal-eventos-cordoba-sm.webp',
     alt: 'Mesa dulce artesanal para eventos en Córdoba'
   },
   {

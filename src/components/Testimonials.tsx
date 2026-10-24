@@ -75,7 +75,7 @@ export const Testimonials: React.FC = () => {
           type="button"
           className="btn-hero"
           onClick={handleWhatsAppClick}
-          aria-label="Consultar fecha y presupuesto por WhatsApp"
+          aria-label="Encargá tu Torta o Mesa Dulce - Consultar por WhatsApp"
         >
           <IconWhatsApp style={{ marginRight: '0.5rem' }} />
           Encargá tu Torta o Mesa Dulce

@@ -73,7 +73,7 @@ export const CoverageAreas: React.FC = () => {
               type="button"
               className="zona-btn"
               onClick={() => handleConsultZone(zone.zoneName)}
-              aria-label={`Consultar envío para ${zone.zoneName} por WhatsApp`}
+              aria-label={`Consultar envío en esta zona: ${zone.zoneName} por WhatsApp`}
             >
               Consultar envío en esta zona →
             </button>

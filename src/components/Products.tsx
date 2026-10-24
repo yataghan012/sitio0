@@ -72,7 +72,7 @@ export const Products: React.FC<ProductsProps> = ({
               role="button"
               tabIndex={0}
               aria-haspopup={product.actionType === 'tartas' ? 'dialog' : undefined}
-              aria-label={`Ver detalle de ${product.title}`}
+              aria-label={`${product.title} - Ver detalle`}
               itemScope
               itemType="https://schema.org/Product"
               onClick={() => handleProductClick(product)}

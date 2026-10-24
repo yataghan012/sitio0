@@ -300,7 +300,7 @@ export const Contact: React.FC = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="telefono">
-                  Teléfono <span style={{ fontWeight: 400, opacity: 0.7 }}>(opcional)</span>
+                  Teléfono <span style={{ fontWeight: 400, color: 'var(--text-light)' }}>(opcional)</span>
                 </label>
                 <input
                   type="tel"
@@ -350,7 +350,7 @@ export const Contact: React.FC = () => {
                 aria-required="true"
                 aria-describedby="mensaje-hint"
               />
-              <small id="mensaje-hint" style={{ opacity: 0.7, fontSize: '0.8rem', marginTop: '0.25rem', display: 'block' }}>
+              <small id="mensaje-hint" style={{ color: 'var(--text-light)', fontSize: '0.82rem', marginTop: '0.25rem', display: 'block' }}>
                 Cuanto más detalle nos des, más preciso será el presupuesto.
               </small>
             </div>

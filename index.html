@@ -5,27 +5,39 @@
   <!-- Preload critical above-the-fold logo for fastest LCP -->
   <link rel="preload" as="image" href="/assets/img/amarena-pasteleria-logo.webp" type="image/webp" fetchpriority="high">
 
-  <!-- Google Tag Manager / GA4 - Inicialización no bloqueante diferida a idle -->
+  <!-- Google Tag Manager / GA4 - Carga diferida tras interacción o idle para máximo rendimiento Core Web Vitals -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-B8TES6Y67Y');
 
-    // Cargar script externo después de la carga inicial para no bloquear FCP/LCP ni CPU móvil
+    var gtagLoaded = false;
     function loadGtag() {
+      if (gtagLoaded) return;
+      gtagLoaded = true;
       var script = document.createElement('script');
       script.async = true;
       script.src = 'https://www.googletagmanager.com/gtag/js?id=G-B8TES6Y67Y';
       document.head.appendChild(script);
     }
+
+    // Cargar en primera interacción de usuario o diferido a 3.5s para no penalizar FCP/LCP ni unused JS
+    function triggerGtag() {
+      window.removeEventListener('scroll', triggerGtag, { passive: true });
+      window.removeEventListener('touchstart', triggerGtag, { passive: true });
+      window.removeEventListener('click', triggerGtag);
+      loadGtag();
+    }
+    window.addEventListener('scroll', triggerGtag, { passive: true, once: true });
+    window.addEventListener('touchstart', triggerGtag, { passive: true, once: true });
+    window.addEventListener('click', triggerGtag, { once: true });
     if ('requestIdleCallback' in window) {
       window.requestIdleCallback(function() {
-        if (document.readyState === 'complete') loadGtag();
-        else window.addEventListener('load', loadGtag, { once: true });
+        setTimeout(loadGtag, 3500);
       });
     } else {
-      window.addEventListener('load', loadGtag, { once: true });
+      setTimeout(loadGtag, 3500);
     }
   </script>
 
@@ -79,6 +91,8 @@
   <meta name="twitter:image:alt" content="Amarena Pastelería Artesanal en Córdoba">
 
   <!-- Performance: Preconnect & Fuentes Asíncronas No Bloqueantes -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Cormorant+Garamond:wght@400;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
