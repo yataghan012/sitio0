@@ -52,7 +52,6 @@ export const Navbar: React.FC<NavbarProps> = () => {
               width={180}
               height={70}
               decoding="async"
-              fetchPriority="high"
             />
           </picture>
         </a>
