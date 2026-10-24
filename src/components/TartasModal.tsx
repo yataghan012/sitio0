@@ -65,7 +65,6 @@ export const TartasModal: React.FC<TartasModalProps> = ({ isOpen, onClose, onSel
           <div key={item.id} className="modal-item">
             <div
               className="modal-item-icon"
-              style={{ backgroundImage: `url('${item.imageUrl}')` }}
               role="button"
               tabIndex={0}
               aria-label={`Ver foto ampliada de ${item.title}`}
@@ -77,14 +76,17 @@ export const TartasModal: React.FC<TartasModalProps> = ({ isOpen, onClose, onSel
                   onSelectImage({ imageUrl: item.imageUrl, alt: item.alt, title: item.title });
                 }
               }}
-            />
-            <img
-              src={item.imageUrl}
-              alt={item.alt || `${item.title} artesanal en Córdoba`}
-              loading="lazy"
-              decoding="async"
-              className="sr-only"
-            />
+            >
+              <img
+                src={item.imageUrl}
+                alt={item.alt || `${item.title} artesanal en Córdoba`}
+                loading="lazy"
+                decoding="async"
+                width={54}
+                height={54}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px', display: 'block' }}
+              />
+            </div>
             <div className="modal-item-info">
               <h4>{item.title}</h4>
               <p>{item.description}</p>

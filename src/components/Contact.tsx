@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import confetti from 'canvas-confetti';
+import React, { useState } from 'react';
 import { CONTACT_INFO } from '../data/bakeryData';
 import { trackConversion } from '../utils/analytics';
 import {
@@ -12,27 +11,6 @@ import {
   IconPaperPlane,
 } from './Icons';
 
-declare global {
-  interface Window {
-    turnstile?: {
-      render: (
-        container: HTMLElement | string,
-        params: {
-          sitekey: string;
-          callback?: (token: string) => void;
-          'error-callback'?: () => void;
-          'expired-callback'?: () => void;
-          theme?: 'light' | 'dark' | 'auto';
-        }
-      ) => string;
-      reset: (widgetId?: string) => void;
-      remove: (widgetId?: string) => void;
-    };
-  }
-}
-
-const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || 'TURNSTILE_SITE_KEY';
-
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     nombre: '',
@@ -43,86 +21,9 @@ export const Contact: React.FC = () => {
   });
 
   const [honeypot, setHoneypot] = useState('');
-  const [turnstileToken, setTurnstileToken] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const turnstileContainerRef = useRef<HTMLDivElement>(null);
-  const turnstileWidgetIdRef = useRef<string | null>(null);
-
-  useEffect(() => {
-    if (submitted) return;
-
-    let isMounted = true;
-
-    const renderWidget = () => {
-      if (!isMounted || !turnstileContainerRef.current || !window.turnstile) return;
-
-      if (turnstileWidgetIdRef.current) {
-        try {
-          window.turnstile.remove(turnstileWidgetIdRef.current);
-        } catch {
-          // Fallback silencioso
-        }
-        turnstileWidgetIdRef.current = null;
-      }
-
-      try {
-        const id = window.turnstile.render(turnstileContainerRef.current, {
-          sitekey: TURNSTILE_SITE_KEY,
-          callback: (token: string) => {
-            if (isMounted) {
-              setTurnstileToken(token);
-              setErrorMessage(null);
-            }
-          },
-          'expired-callback': () => {
-            if (isMounted) setTurnstileToken('');
-          },
-          'error-callback': () => {
-            // Widget notificado de error
-          },
-          theme: 'light',
-        });
-        turnstileWidgetIdRef.current = id;
-      } catch (err) {
-        console.warn('Error inicializando Turnstile:', err);
-      }
-    };
-
-    if (window.turnstile) {
-      renderWidget();
-    } else {
-      const scriptId = 'cloudflare-turnstile-script';
-      let script = document.getElementById(scriptId) as HTMLScriptElement | null;
-      if (!script) {
-        script = document.createElement('script');
-        script.id = scriptId;
-        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-        script.async = true;
-        script.defer = true;
-        script.onload = () => {
-          renderWidget();
-        };
-        document.head.appendChild(script);
-      } else {
-        script.addEventListener('load', renderWidget);
-      }
-    }
-
-    return () => {
-      isMounted = false;
-      if (turnstileWidgetIdRef.current && window.turnstile) {
-        try {
-          window.turnstile.remove(turnstileWidgetIdRef.current);
-        } catch {
-          // Fallback silencioso
-        }
-        turnstileWidgetIdRef.current = null;
-      }
-    };
-  }, [submitted]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -162,7 +63,6 @@ export const Contact: React.FC = () => {
           servicio: formData.servicio,
           mensaje: formData.mensaje,
           honeypot: honeypot,
-          turnstileToken: turnstileToken,
         }),
       });
 
@@ -176,9 +76,11 @@ export const Contact: React.FC = () => {
           label: formData.servicio || 'general_query',
         });
 
-        // Explosión de confetti
+        // Explosión de confetti con importación dinámica diferida
         try {
-          confetti({
+          const confettiModule = await import('canvas-confetti');
+          const runConfetti = confettiModule.default || confettiModule;
+          runConfetti({
             particleCount: 80,
             spread: 70,
             origin: { y: 0.6 },
@@ -193,15 +95,6 @@ export const Contact: React.FC = () => {
           ? data.error
           : 'Ocurrió un inconveniente al enviar tu mensaje. Podés comunicarte directamente por WhatsApp.';
         setErrorMessage(errorText);
-
-        if (window.turnstile && turnstileWidgetIdRef.current) {
-          try {
-            window.turnstile.reset(turnstileWidgetIdRef.current);
-            setTurnstileToken('');
-          } catch {
-            // Fallback
-          }
-        }
       }
     } catch (err) {
       console.error('Error enviando formulario:', err);
@@ -319,7 +212,6 @@ export const Contact: React.FC = () => {
                 onClick={() => {
                   setSubmitted(false);
                   setErrorMessage(null);
-                  setTurnstileToken('');
                   setHoneypot('');
                   setFormData({ nombre: '', email: '', telefono: '', servicio: '', mensaje: '' });
                 }}
@@ -463,13 +355,7 @@ export const Contact: React.FC = () => {
               </small>
             </div>
 
-            {/* Widget Cloudflare Turnstile */}
-            <div
-              ref={turnstileContainerRef}
-              className="turnstile-wrapper"
-              style={{ minHeight: '65px', margin: '0.4rem 0' }}
-              aria-label="Verificación de seguridad Turnstile"
-            />
+
 
             <button type="submit" className="btn-send" disabled={isSending}>
               <IconPaperPlane />

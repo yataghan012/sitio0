@@ -37,19 +37,17 @@ export const Gallery: React.FC<GalleryProps> = ({ onSelectImage }) => {
               }
             }}
           >
-            <div
-              className="g-bg"
-              style={{ backgroundImage: `url('${item.imageUrl}')` }}
-              role="img"
-              aria-label={item.alt}
-            />
-            <img
-              src={item.imageUrl}
-              alt={item.alt}
-              loading="lazy"
-              decoding="async"
-              className="sr-only"
-            />
+            <div className="g-bg">
+              <img
+                src={item.imageUrl}
+                alt={item.alt}
+                loading="lazy"
+                decoding="async"
+                width={400}
+                height={320}
+                className="g-img"
+              />
+            </div>
             <figcaption className="g-overlay">
               <span>{item.title}</span>
             </figcaption>

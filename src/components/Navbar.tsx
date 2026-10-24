@@ -44,12 +44,17 @@ export const Navbar: React.FC<NavbarProps> = () => {
     <nav id="mainNav" className={isShrunk ? 'shrunk' : ''} aria-label="Navegación principal">
       <div className="nav-logo">
         <a href="#hero" onClick={closeMenu} aria-label="Ir al inicio - Amarena Pastelería">
-          <img
-            src="/assets/img/amarena-pasteleria-logo.png"
-            alt="Amarena Pastelería - Pastelería Artesanal en Córdoba"
-            width={180}
-            height={70}
-          />
+          <picture>
+            <source srcSet="/assets/img/amarena-pasteleria-logo.webp" type="image/webp" />
+            <img
+              src="/assets/img/amarena-pasteleria-logo-opt.png"
+              alt="Amarena Pastelería - Pastelería Artesanal en Córdoba"
+              width={180}
+              height={70}
+              decoding="async"
+              fetchPriority="high"
+            />
+          </picture>
         </a>
       </div>
 

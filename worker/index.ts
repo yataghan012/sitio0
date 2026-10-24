@@ -112,39 +112,7 @@ export default {
       const cleanServicio = servicio.trim();
       const cleanMensaje = mensaje.trim();
 
-      // 3. Verificación de Cloudflare Turnstile
-      const token = (typeof turnstileToken === 'string' && turnstileToken.trim()) ||
-                    (typeof cfResponse === 'string' && cfResponse.trim()) ||
-                    '';
 
-      if (env.TURNSTILE_SECRET) {
-        if (!token) {
-          return jsonResponse({ ok: false, error: 'Falta token de verificación Turnstile' }, 400);
-        }
-
-        const turnstileFormData = new FormData();
-        turnstileFormData.append('secret', env.TURNSTILE_SECRET);
-        turnstileFormData.append('response', token);
-        const clientIp = request.headers.get('CF-Connecting-IP');
-        if (clientIp) {
-          turnstileFormData.append('remoteip', clientIp);
-        }
-
-        try {
-          const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-            method: 'POST',
-            body: turnstileFormData,
-          });
-
-          const verifyData = (await verifyRes.json()) as { success?: boolean };
-          if (!verifyData.success) {
-            return jsonResponse({ ok: false, error: 'Verificación de seguridad fallida. Por favor recarga e intenta de nuevo.' }, 403);
-          }
-        } catch (err) {
-          console.error('Error al verificar Turnstile:', err);
-          return jsonResponse({ ok: false, error: 'Error al validar seguridad' }, 500);
-        }
-      }
 
       // 4. Envío por REST de Resend
       if (!env.RESEND_API_KEY) {

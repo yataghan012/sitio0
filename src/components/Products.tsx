@@ -84,22 +84,18 @@ export const Products: React.FC<ProductsProps> = ({
               }}
             >
               {product.imageUrl && (
-                <>
-                  <div
-                    className="producto-img"
-                    style={{ backgroundImage: `url('${product.imageUrl}')` }}
-                    role="img"
-                    aria-label={product.alt || product.title}
-                  />
+                <div className="producto-img">
                   <img
                     src={product.imageUrl}
                     alt={product.alt || `${product.title} en Córdoba`}
                     loading="lazy"
                     decoding="async"
-                    className="sr-only"
+                    width={400}
+                    height={260}
                     itemProp="image"
+                    className="producto-img-element"
                   />
-                </>
+                </div>
               )}
               <div className="producto-body">
                 <h3 itemProp="name">{product.title}</h3>

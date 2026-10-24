@@ -24,11 +24,14 @@ export const Services: React.FC = () => {
             itemType="https://schema.org/Service"
           >
             {service.imageUrl ? (
-              <div
+              <img
+                src={service.imageUrl}
+                alt={service.alt}
+                loading="lazy"
+                decoding="async"
+                width={190}
+                height={190}
                 className="servicio-img-circle"
-                style={{ backgroundImage: `url('${service.imageUrl}')` }}
-                role="img"
-                aria-label={service.alt}
               />
             ) : (
               <span className="servicio-icon" aria-hidden="true">

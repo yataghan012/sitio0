@@ -10,9 +10,17 @@ import { Faq } from './components/Faq';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { WhatsAppFloat } from './components/WhatsAppFloat';
-import { TartasModal } from './components/TartasModal';
-import { MoreProductsModal } from './components/MoreProductsModal';
-import { LightboxModal } from './components/LightboxModal';
+
+// Code-splitting modals to keep initial bundle ultra-lean
+const TartasModal = React.lazy(() =>
+  import('./components/TartasModal').then((m) => ({ default: m.TartasModal }))
+);
+const MoreProductsModal = React.lazy(() =>
+  import('./components/MoreProductsModal').then((m) => ({ default: m.MoreProductsModal }))
+);
+const LightboxModal = React.lazy(() =>
+  import('./components/LightboxModal').then((m) => ({ default: m.LightboxModal }))
+);
 
 export const App: React.FC = () => {
   const [isTartasOpen, setIsTartasOpen] = useState(false);
@@ -53,23 +61,31 @@ export const App: React.FC = () => {
       <Footer />
       <WhatsAppFloat />
 
-      {/* Modals */}
-      <TartasModal
-        isOpen={isTartasOpen}
-        onClose={() => setIsTartasOpen(false)}
-        onSelectImage={handleOpenImage}
-      />
+      {/* Lazy Loaded Modals */}
+      <React.Suspense fallback={null}>
+        {isTartasOpen && (
+          <TartasModal
+            isOpen={isTartasOpen}
+            onClose={() => setIsTartasOpen(false)}
+            onSelectImage={handleOpenImage}
+          />
+        )}
 
-      <MoreProductsModal
-        isOpen={isMoreOpen}
-        onClose={() => setIsMoreOpen(false)}
-        onSelectImage={handleOpenImage}
-      />
+        {isMoreOpen && (
+          <MoreProductsModal
+            isOpen={isMoreOpen}
+            onClose={() => setIsMoreOpen(false)}
+            onSelectImage={handleOpenImage}
+          />
+        )}
 
-      <LightboxModal
-        image={lightboxImage}
-        onClose={handleCloseLightbox}
-      />
+        {lightboxImage && (
+          <LightboxModal
+            image={lightboxImage}
+            onClose={handleCloseLightbox}
+          />
+        )}
+      </React.Suspense>
     </div>
   );
 };

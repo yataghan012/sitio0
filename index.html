@@ -2,14 +2,31 @@
 <html lang="es-AR">
 
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B8TES6Y67Y"></script>
+  <!-- Preload critical above-the-fold logo for fastest LCP -->
+  <link rel="preload" as="image" href="/assets/img/amarena-pasteleria-logo.webp" type="image/webp" fetchpriority="high">
+
+  <!-- Google Tag Manager / GA4 - Inicialización no bloqueante diferida a idle -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-B8TES6Y67Y');
+
+    // Cargar script externo después de la carga inicial para no bloquear FCP/LCP ni CPU móvil
+    function loadGtag() {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-B8TES6Y67Y';
+      document.head.appendChild(script);
+    }
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(function() {
+        if (document.readyState === 'complete') loadGtag();
+        else window.addEventListener('load', loadGtag, { once: true });
+      });
+    } else {
+      window.addEventListener('load', loadGtag, { once: true });
+    }
   </script>
 
   <meta charset="UTF-8">
@@ -61,10 +78,13 @@
   <meta name="twitter:image" content="https://amarenapasteleria.com/assets/img/og-image.jpg">
   <meta name="twitter:image:alt" content="Amarena Pastelería Artesanal en Córdoba">
 
-  <!-- Performance: Preconnect & Fuentes -->
+  <!-- Performance: Preconnect & Fuentes Asíncronas No Bloqueantes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Cormorant+Garamond:wght@400;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Cormorant+Garamond:wght@400;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  </noscript>
 
   <!-- Datos Estructurados Schema.org JSON-LD (LocalBusiness, WebSite, FAQPage, ItemList) -->
   <script type="application/ld+json">
