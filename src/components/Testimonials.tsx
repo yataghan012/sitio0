@@ -1,6 +1,7 @@
 import React from 'react';
 import { TESTIMONIALS, CONTACT_INFO } from '../data/bakeryData';
 import { trackConversion } from '../utils/analytics';
+import { IconStar, IconWhatsApp } from './Icons';
 
 export const Testimonials: React.FC = () => {
   const handleWhatsAppClick = () => {
@@ -37,7 +38,7 @@ export const Testimonials: React.FC = () => {
           >
             <div className="testimonio-stars" aria-label={`Calificación de ${t.rating} de 5 estrellas`}>
               {Array.from({ length: t.rating }).map((_, i) => (
-                <i key={i} className="fa-solid fa-star" aria-hidden="true" />
+                <IconStar key={i} />
               ))}
             </div>
 
@@ -76,7 +77,7 @@ export const Testimonials: React.FC = () => {
           onClick={handleWhatsAppClick}
           aria-label="Consultar fecha y presupuesto por WhatsApp"
         >
-          <i className="fa-brands fa-whatsapp" aria-hidden="true" style={{ marginRight: '0.5rem' }} />
+          <IconWhatsApp style={{ marginRight: '0.5rem' }} />
           Encargá tu Torta o Mesa Dulce
         </button>
       </div>

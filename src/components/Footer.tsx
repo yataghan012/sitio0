@@ -1,5 +1,6 @@
 import React from 'react';
 import { CONTACT_INFO } from '../data/bakeryData';
+import { IconInstagram, IconWhatsApp, IconCake, IconLocation, IconPhone } from './Icons';
 
 export const Footer: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ export const Footer: React.FC = () => {
               aria-label="Instagram de Amarena Pastelería @amarenacba21 — abre en nueva ventana"
             >
               <span className="s-icon">
-                <i className="fa-brands fa-instagram" aria-hidden="true" />
+                <IconInstagram />
               </span>
               Instagram
             </a>
@@ -29,7 +30,7 @@ export const Footer: React.FC = () => {
               aria-label="WhatsApp de Amarena Pastelería — abre en nueva ventana"
             >
               <span className="s-icon">
-                <i className="fa-brands fa-whatsapp" aria-hidden="true" />
+                <IconWhatsApp />
               </span>
               WhatsApp
             </a>
@@ -38,14 +39,14 @@ export const Footer: React.FC = () => {
 
         <div className="footer-col footer-info">
           <div className="f-logo">
-            <i className="fa-solid fa-cake-candles" aria-hidden="true" />
+            <IconCake style={{ marginRight: '0.4rem' }} />
             Amarena Pastelería
           </div>
           <p>
             © 2026 Amarena Pastelería<br />
             Hecho con amor y dedicación en Córdoba<br /><br />
-            <i className="fa-solid fa-location-dot" aria-hidden="true" /> {CONTACT_INFO.address}<br />
-            <i className="fa-solid fa-phone" aria-hidden="true" />
+            <IconLocation style={{ marginRight: '0.3rem' }} /> {CONTACT_INFO.address}<br />
+            <IconPhone style={{ marginRight: '0.3rem' }} />
             <a
               href={`tel:${CONTACT_INFO.phoneRaw}`}
               style={{ color: 'inherit', textDecoration: 'none' }}

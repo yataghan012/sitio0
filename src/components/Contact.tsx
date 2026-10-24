@@ -1,7 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { CONTACT_INFO } from '../data/bakeryData';
 import { trackConversion } from '../utils/analytics';
+import {
+  IconLocation,
+  IconPhone,
+  IconEnvelope,
+  IconClock,
+  IconWhatsApp,
+  IconAlertCircle,
+  IconPaperPlane,
+} from './Icons';
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (
+        container: HTMLElement | string,
+        params: {
+          sitekey: string;
+          callback?: (token: string) => void;
+          'error-callback'?: () => void;
+          'expired-callback'?: () => void;
+          theme?: 'light' | 'dark' | 'auto';
+        }
+      ) => string;
+      reset: (widgetId?: string) => void;
+      remove: (widgetId?: string) => void;
+    };
+  }
+}
+
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || 'TURNSTILE_SITE_KEY';
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -12,8 +42,87 @@ export const Contact: React.FC = () => {
     mensaje: '',
   });
 
+  const [honeypot, setHoneypot] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const turnstileContainerRef = useRef<HTMLDivElement>(null);
+  const turnstileWidgetIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (submitted) return;
+
+    let isMounted = true;
+
+    const renderWidget = () => {
+      if (!isMounted || !turnstileContainerRef.current || !window.turnstile) return;
+
+      if (turnstileWidgetIdRef.current) {
+        try {
+          window.turnstile.remove(turnstileWidgetIdRef.current);
+        } catch {
+          // Fallback silencioso
+        }
+        turnstileWidgetIdRef.current = null;
+      }
+
+      try {
+        const id = window.turnstile.render(turnstileContainerRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          callback: (token: string) => {
+            if (isMounted) {
+              setTurnstileToken(token);
+              setErrorMessage(null);
+            }
+          },
+          'expired-callback': () => {
+            if (isMounted) setTurnstileToken('');
+          },
+          'error-callback': () => {
+            // Widget notificado de error
+          },
+          theme: 'light',
+        });
+        turnstileWidgetIdRef.current = id;
+      } catch (err) {
+        console.warn('Error inicializando Turnstile:', err);
+      }
+    };
+
+    if (window.turnstile) {
+      renderWidget();
+    } else {
+      const scriptId = 'cloudflare-turnstile-script';
+      let script = document.getElementById(scriptId) as HTMLScriptElement | null;
+      if (!script) {
+        script = document.createElement('script');
+        script.id = scriptId;
+        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        script.async = true;
+        script.defer = true;
+        script.onload = () => {
+          renderWidget();
+        };
+        document.head.appendChild(script);
+      } else {
+        script.addEventListener('load', renderWidget);
+      }
+    }
+
+    return () => {
+      isMounted = false;
+      if (turnstileWidgetIdRef.current && window.turnstile) {
+        try {
+          window.turnstile.remove(turnstileWidgetIdRef.current);
+        } catch {
+          // Fallback silencioso
+        }
+        turnstileWidgetIdRef.current = null;
+      }
+    };
+  }, [submitted]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -22,37 +131,10 @@ export const Contact: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSending(true);
-
-    trackConversion('contact_form_submit', {
-      category: 'lead_generation',
-      label: formData.servicio || 'general_query',
-    });
-
-    setTimeout(() => {
-      setIsSending(false);
-      setSubmitted(true);
-
-      // Confetti celebratory burst
-      try {
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ['#c0515a', '#b8956a', '#3b2314', '#d4b48c'],
-        });
-      } catch {
-        // Safe fallback
-      }
-    }, 600);
-  };
-
   const handleSendWhatsAppDirect = () => {
     trackConversion('whatsapp_click', {
       category: 'lead_generation',
-      label: 'contact_form_success_whatsapp',
+      label: 'contact_form_whatsapp_direct',
     });
     const text = encodeURIComponent(
       `Hola Amarena Pastelería! Mi nombre es ${formData.nombre || 'un cliente'}. ` +
@@ -60,6 +142,73 @@ export const Contact: React.FC = () => {
       `${formData.mensaje ? `Detalle: ${formData.mensaje}` : 'Quisiera consultar disponibilidad y presupuesto.'}`
     );
     window.open(`https://wa.me/${CONTACT_INFO.whatsappRaw}?text=${text}`, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage(null);
+    setIsSending(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nombre: formData.nombre,
+          email: formData.email,
+          telefono: formData.telefono,
+          servicio: formData.servicio,
+          mensaje: formData.mensaje,
+          honeypot: honeypot,
+          turnstileToken: turnstileToken,
+        }),
+      });
+
+      const data = (await response.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+
+      if (response.ok && data && data.ok) {
+        // Éxito: solo si ok
+        setSubmitted(true);
+        trackConversion('contact_form_submit', {
+          category: 'lead_generation',
+          label: formData.servicio || 'general_query',
+        });
+
+        // Explosión de confetti
+        try {
+          confetti({
+            particleCount: 80,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#c0515a', '#b8956a', '#3b2314', '#d4b48c'],
+          });
+        } catch {
+          // Fallback silencioso
+        }
+      } else {
+        // Falla: error visible + botón de WhatsApp
+        const errorText = data && data.error
+          ? data.error
+          : 'Ocurrió un inconveniente al enviar tu mensaje. Podés comunicarte directamente por WhatsApp.';
+        setErrorMessage(errorText);
+
+        if (window.turnstile && turnstileWidgetIdRef.current) {
+          try {
+            window.turnstile.reset(turnstileWidgetIdRef.current);
+            setTurnstileToken('');
+          } catch {
+            // Fallback
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Error enviando formulario:', err);
+      setErrorMessage('No pudimos conectar con el servidor. Comunicate con nosotros por WhatsApp para atenderte de inmediato.');
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -87,7 +236,7 @@ export const Contact: React.FC = () => {
 
           <div className="info-item">
             <span className="info-icon">
-              <i className="fa-solid fa-location-dot" aria-hidden="true" />
+              <IconLocation />
             </span>
             <div>
               <strong>Ubicación</strong>
@@ -101,7 +250,7 @@ export const Contact: React.FC = () => {
 
           <div className="info-item">
             <span className="info-icon">
-              <i className="fa-solid fa-phone" aria-hidden="true" />
+              <IconPhone />
             </span>
             <div>
               <strong>Teléfono</strong>
@@ -118,7 +267,7 @@ export const Contact: React.FC = () => {
 
           <div className="info-item">
             <span className="info-icon">
-              <i className="fa-solid fa-envelope" aria-hidden="true" />
+              <IconEnvelope />
             </span>
             <div>
               <strong>Email</strong>
@@ -134,7 +283,7 @@ export const Contact: React.FC = () => {
 
           <div className="info-item">
             <span className="info-icon">
-              <i className="fa-solid fa-clock" aria-hidden="true" />
+              <IconClock />
             </span>
             <div>
               <strong>Horario</strong>
@@ -160,7 +309,7 @@ export const Contact: React.FC = () => {
                 style={{ background: '#25d366', padding: '0.6rem 1.4rem' }}
                 onClick={handleSendWhatsAppDirect}
               >
-                <i className="fa-brands fa-whatsapp" aria-hidden="true" />
+                <IconWhatsApp />
                 Continuar por WhatsApp
               </button>
               <button
@@ -169,6 +318,9 @@ export const Contact: React.FC = () => {
                 style={{ background: 'var(--brown-mid)', padding: '0.6rem 1.4rem' }}
                 onClick={() => {
                   setSubmitted(false);
+                  setErrorMessage(null);
+                  setTurnstileToken('');
+                  setHoneypot('');
                   setFormData({ nombre: '', email: '', telefono: '', servicio: '', mensaje: '' });
                 }}
               >
@@ -183,6 +335,47 @@ export const Contact: React.FC = () => {
             onSubmit={handleSubmit}
             aria-label="Formulario de contacto y pedidos de Amarena Pastelería"
           >
+            {/* Honeypot anti-spam oculto */}
+            <div style={{ display: 'none' }} aria-hidden="true">
+              <label htmlFor="hp_comment">Por favor deje este campo en blanco</label>
+              <input
+                type="text"
+                id="hp_comment"
+                name="honeypot"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+            </div>
+
+            {/* Error visible + Botón de WhatsApp */}
+            {errorMessage && (
+              <div className="form-feedback-error" role="alert">
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem' }}>
+                  <IconAlertCircle style={{ color: 'var(--rose)', marginTop: '3px', flexShrink: 0 }} />
+                  <div>
+                    <strong>No pudimos enviar tu mensaje:</strong>
+                    <p style={{ margin: '0.2rem 0 0.6rem 0' }}>{errorMessage}</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="btn-send"
+                  style={{
+                    background: '#25d366',
+                    padding: '0.55rem 1.2rem',
+                    fontSize: '0.8rem',
+                    marginTop: '0.3rem',
+                  }}
+                  onClick={handleSendWhatsAppDirect}
+                >
+                  <IconWhatsApp />
+                  Enviar consulta por WhatsApp
+                </button>
+              </div>
+            )}
+
             <div className="form-group">
               <label htmlFor="nombre">Nombre completo</label>
               <input
@@ -270,8 +463,16 @@ export const Contact: React.FC = () => {
               </small>
             </div>
 
+            {/* Widget Cloudflare Turnstile */}
+            <div
+              ref={turnstileContainerRef}
+              className="turnstile-wrapper"
+              style={{ minHeight: '65px', margin: '0.4rem 0' }}
+              aria-label="Verificación de seguridad Turnstile"
+            />
+
             <button type="submit" className="btn-send" disabled={isSending}>
-              <i className="fa-solid fa-paper-plane" aria-hidden="true" />
+              <IconPaperPlane />
               {isSending ? 'Enviando...' : 'Enviar Mensaje'}
             </button>
           </form>

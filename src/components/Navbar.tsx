@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IconBars, IconXmark } from './Icons';
 
 interface NavbarProps {
   onNavigate?: (id: string) => void;
@@ -99,7 +100,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
         type="button"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
-        <i className={`fa-solid ${isMenuOpen ? 'fa-xmark' : 'fa-bars'}`} aria-hidden="true" />
+        {isMenuOpen ? <IconXmark /> : <IconBars />}
       </button>
     </nav>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { COVERAGE_ZONES, CONTACT_INFO } from '../data/bakeryData';
 import { trackConversion } from '../utils/analytics';
+import { IconBoxOpen, IconTemperatureLow, IconClock, IconLocation } from './Icons';
 
 export const CoverageAreas: React.FC = () => {
   const handleConsultZone = (zoneName: string) => {
@@ -28,15 +29,15 @@ export const CoverageAreas: React.FC = () => {
 
         <div className="cobertura-features">
           <div className="feature-pill">
-            <i className="fa-solid fa-box-open" aria-hidden="true" />
+            <IconBoxOpen />
             <span>Embalaje rígido protector</span>
           </div>
           <div className="feature-pill">
-            <i className="fa-solid fa-temperature-low" aria-hidden="true" />
+            <IconTemperatureLow />
             <span>Control de temperatura</span>
           </div>
           <div className="feature-pill">
-            <i className="fa-solid fa-clock" aria-hidden="true" />
+            <IconClock />
             <span>Horario programado para tu evento</span>
           </div>
         </div>
@@ -47,7 +48,7 @@ export const CoverageAreas: React.FC = () => {
           <div key={zone.id} className="zona-card">
             <div className="zona-header">
               <span className="zona-icon" aria-hidden="true">
-                <i className="fa-solid fa-location-dot" />
+                <IconLocation />
               </span>
               <div>
                 <h3 className="zona-name">{zone.zoneName}</h3>
