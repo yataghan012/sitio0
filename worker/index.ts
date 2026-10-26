@@ -121,7 +121,7 @@ export default {
       }
 
       const fromAddress = env.MAIL_FROM || 'Amarena Pastelería <onboarding@resend.dev>';
-      const toAddress = env.MAIL_TO ? [env.MAIL_TO] : ['contacto@amarenapasteleria.com'];
+      const toAddress = env.MAIL_TO ? [env.MAIL_TO] : ['marialorenavivas@gmail.com'];
 
       const escapedNombre = escapeHtml(cleanNombre);
       const escapedEmail = escapeHtml(cleanEmail);
