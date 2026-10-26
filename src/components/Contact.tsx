@@ -20,6 +20,7 @@ declare global {
         container: string | HTMLElement,
         options: {
           sitekey: string;
+          action?: string;
           callback?: (token: string) => void;
           'error-callback'?: () => void;
           'expired-callback'?: () => void;
@@ -79,6 +80,7 @@ export const Contact: React.FC = () => {
       try {
         widgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
           sitekey: TURNSTILE_SITE_KEY,
+          action: 'contact',
           callback: (token: string) => {
             if (isMounted) {
               setTurnstileToken(token);
@@ -176,6 +178,7 @@ export const Contact: React.FC = () => {
           servicio: formData.servicio,
           mensaje: formData.mensaje,
           honeypot: honeypot,
+          'cf-turnstile-response': turnstileToken,
           turnstileToken: turnstileToken,
         }),
       });

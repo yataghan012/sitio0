@@ -1,5 +1,6 @@
 export interface Env {
   TURNSTILE_SECRET?: string;
+  TURNSTILE_HOSTNAMES?: string;
   RESEND_API_KEY?: string;
   MAIL_FROM?: string;
   MAIL_TO?: string;
@@ -79,39 +80,64 @@ export default {
         return jsonResponse({ ok: false, error: 'Solicitud no válida' }, 400);
       }
 
-      // 2. Verificación de Cloudflare Turnstile server-side
+      // 2. Verificación canónica de Cloudflare Turnstile server-side (Spin prompt.md)
+      const expectedAction = 'contact';
       const token =
-        typeof turnstileToken === 'string' && turnstileToken.trim()
-          ? turnstileToken.trim()
-          : typeof cfResponse === 'string' && cfResponse.trim()
+        typeof cfResponse === 'string' && cfResponse.trim()
           ? cfResponse.trim()
+          : typeof turnstileToken === 'string' && turnstileToken.trim()
+          ? turnstileToken.trim()
           : '';
 
-      if (!token) {
-        return jsonResponse({ ok: false, error: 'Token de Turnstile requerido' }, 400);
+      if (!token || token.length > 2048) {
+        return jsonResponse({ ok: false, error: 'Token de Turnstile requerido o inválido' }, 400);
       }
 
       const remoteIp = request.headers.get('CF-Connecting-IP') || '';
 
-      const turnstileFormData = new FormData();
-      turnstileFormData.append('secret', env.TURNSTILE_SECRET || '');
-      turnstileFormData.append('response', token);
+      const expectedHostnames = new Set(
+        (env.TURNSTILE_HOSTNAMES ?? 'amarenapasteleria.com,localhost,127.0.0.1')
+          .split(',')
+          .map((h) => h.trim().toLowerCase())
+          .filter(Boolean)
+      );
+      if (url.hostname) {
+        expectedHostnames.add(url.hostname.toLowerCase());
+      }
+
+      const searchParams = new URLSearchParams({
+        secret: env.TURNSTILE_SECRET || '',
+        response: token,
+      });
       if (remoteIp) {
-        turnstileFormData.append('remoteip', remoteIp);
+        searchParams.append('remoteip', remoteIp);
       }
 
       try {
         const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
           method: 'POST',
-          body: turnstileFormData,
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          signal: typeof AbortSignal.timeout === 'function' ? AbortSignal.timeout(10_000) : undefined,
+          body: searchParams,
         });
+
+        if (!turnstileRes.ok) {
+          throw new Error(`siteverify HTTP ${turnstileRes.status}`);
+        }
 
         const turnstileOutcome = (await turnstileRes.json().catch(() => null)) as {
           success?: boolean;
+          action?: string;
+          hostname?: string;
           'error-codes'?: string[];
         } | null;
 
-        if (!turnstileOutcome || !turnstileOutcome.success) {
+        if (
+          !turnstileOutcome ||
+          !turnstileOutcome.success ||
+          (turnstileOutcome.action && turnstileOutcome.action !== expectedAction) ||
+          (turnstileOutcome.hostname && !expectedHostnames.has(turnstileOutcome.hostname.toLowerCase()))
+        ) {
           return jsonResponse({ ok: false, error: 'Verificación de Turnstile inválida' }, 400);
         }
       } catch (err) {
