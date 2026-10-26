@@ -296,7 +296,7 @@ export const CONTACT_INFO = {
   phone: '(351) 248-4288',
   phoneRaw: '+543512484288',
   whatsappRaw: '5493512484288',
-  email: 'marialorenavivas@gmail.com',
+  email: 'contacto@amarenapasteleria.com',
   hours: 'Lun – Sáb · 9:00 a 19:00hs',
   instagramUrl: 'https://www.instagram.com/amarenacba21/',
   instagramHandle: '@amarenacba21'

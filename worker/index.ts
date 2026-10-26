@@ -20,18 +20,11 @@ interface ContactPayload {
   'cf-turnstile-response'?: unknown;
 }
 
-const corsHeaders: Record<string, string> = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-};
-
 function jsonResponse(data: { ok: boolean; error?: string }, status = 200): Response {
   return new Response(JSON.stringify(data), {
     status,
     headers: {
       'Content-Type': 'application/json',
-      ...corsHeaders,
     },
   });
 }
@@ -49,16 +42,14 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
-    // Manejo de preflight CORS
-    if (request.method === 'OPTIONS' && url.pathname === '/api/contact') {
-      return new Response(null, {
-        status: 204,
-        headers: corsHeaders,
-      });
-    }
-
     // Ruta específica POST /api/contact
     if (url.pathname === '/api/contact') {
+      // Restricción same-origin only: rechazar si el header Origin no coincide con url.origin
+      const origin = request.headers.get('Origin');
+      if (origin && origin !== url.origin) {
+        return jsonResponse({ ok: false, error: 'Acceso denegado: solo solicitudes del mismo origen' }, 403);
+      }
+
       if (request.method !== 'POST') {
         return jsonResponse({ ok: false, error: 'Método no permitido' }, 405);
       }
@@ -88,7 +79,47 @@ export default {
         return jsonResponse({ ok: false, error: 'Solicitud no válida' }, 400);
       }
 
-      // 2. Validación de campos obligatorios
+      // 2. Verificación de Cloudflare Turnstile server-side
+      const token =
+        typeof turnstileToken === 'string' && turnstileToken.trim()
+          ? turnstileToken.trim()
+          : typeof cfResponse === 'string' && cfResponse.trim()
+          ? cfResponse.trim()
+          : '';
+
+      if (!token) {
+        return jsonResponse({ ok: false, error: 'Token de Turnstile requerido' }, 400);
+      }
+
+      const remoteIp = request.headers.get('CF-Connecting-IP') || '';
+
+      const turnstileFormData = new FormData();
+      turnstileFormData.append('secret', env.TURNSTILE_SECRET || '');
+      turnstileFormData.append('response', token);
+      if (remoteIp) {
+        turnstileFormData.append('remoteip', remoteIp);
+      }
+
+      try {
+        const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+          method: 'POST',
+          body: turnstileFormData,
+        });
+
+        const turnstileOutcome = (await turnstileRes.json().catch(() => null)) as {
+          success?: boolean;
+          'error-codes'?: string[];
+        } | null;
+
+        if (!turnstileOutcome || !turnstileOutcome.success) {
+          return jsonResponse({ ok: false, error: 'Verificación de Turnstile inválida' }, 400);
+        }
+      } catch (err) {
+        console.error('Error al contactar Cloudflare Turnstile:', err);
+        return jsonResponse({ ok: false, error: 'Error al validar Turnstile' }, 400);
+      }
+
+      // 3. Validación de campos obligatorios
       if (typeof nombre !== 'string' || !nombre.trim()) {
         return jsonResponse({ ok: false, error: 'El nombre es obligatorio' }, 400);
       }
@@ -106,22 +137,46 @@ export default {
         return jsonResponse({ ok: false, error: 'El mensaje no puede estar vacío' }, 400);
       }
 
-      const cleanNombre = nombre.trim();
+      // Limpieza y remoción de \r\n de nombre y campos de cabecera
+      const cleanNombre = nombre.replace(/[\r\n]/g, '').trim();
       const cleanEmail = email.trim();
-      const cleanTelefono = typeof telefono === 'string' && telefono.trim() ? telefono.trim() : '';
-      const cleanServicio = servicio.trim();
+      const cleanTelefono = typeof telefono === 'string' && telefono.trim() ? telefono.replace(/[\r\n]/g, '').trim() : '';
+      const cleanServicio = servicio.replace(/[\r\n]/g, '').trim();
       const cleanMensaje = mensaje.trim();
 
+      if (!cleanNombre) {
+        return jsonResponse({ ok: false, error: 'El nombre no es válido' }, 400);
+      }
 
+      // 4. Validación de longitudes máximas (nombre 100, email 200, telefono 40, mensaje 3000)
+      if (cleanNombre.length > 100) {
+        return jsonResponse({ ok: false, error: 'El nombre excede el límite máximo de 100 caracteres' }, 400);
+      }
 
-      // 4. Envío por REST de Resend
+      if (cleanEmail.length > 200) {
+        return jsonResponse({ ok: false, error: 'El email excede el límite máximo de 200 caracteres' }, 400);
+      }
+
+      if (cleanTelefono.length > 40) {
+        return jsonResponse({ ok: false, error: 'El teléfono excede el límite máximo de 40 caracteres' }, 400);
+      }
+
+      if (cleanMensaje.length > 3000) {
+        return jsonResponse({ ok: false, error: 'El mensaje excede el límite máximo de 3000 caracteres' }, 400);
+      }
+
+      // 5. Envío por REST de Resend
       if (!env.RESEND_API_KEY) {
         console.error('Variable RESEND_API_KEY no configurada');
         return jsonResponse({ ok: false, error: 'Servicio de correo temporalmente no configurado' }, 500);
       }
 
       const fromAddress = env.MAIL_FROM || 'Amarena Pastelería <onboarding@resend.dev>';
-      const toAddress = env.MAIL_TO ? [env.MAIL_TO] : ['marialorenavivas@gmail.com'];
+      const toAddress = env.MAIL_TO ? [env.MAIL_TO] : ['marialorenavivasrodriguez@gmail.com'];
+
+      // Sanitizar el asunto eliminando \r\n
+      const rawSubject = `Nuevo pedido web: ${cleanNombre} (${cleanServicio})`;
+      const cleanSubject = rawSubject.replace(/[\r\n]/g, '');
 
       const escapedNombre = escapeHtml(cleanNombre);
       const escapedEmail = escapeHtml(cleanEmail);
@@ -181,7 +236,7 @@ export default {
             from: fromAddress,
             to: toAddress,
             reply_to: cleanEmail,
-            subject: `Nuevo pedido web: ${cleanNombre} (${cleanServicio})`,
+            subject: cleanSubject,
             html: htmlContent,
             text: textContent,
           }),

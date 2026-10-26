@@ -3,6 +3,13 @@
   "name": "amarena",
   "main": "worker/index.ts",
   "compatibility_date": "2026-10-01",
+  "vars": {
+    "MAIL_FROM": "Amarena Pastelería <contacto@amarenapasteleria.com>",
+    "MAIL_TO": "marialorenavivasrodriguez@gmail.com"
+  },
+  "observability": {
+    "enabled": true
+  },
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
