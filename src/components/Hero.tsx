@@ -34,17 +34,6 @@ export const Hero: React.FC = () => {
           Ver Catálogo de Productos
         </a>
       </div>
-      <button
-        type="button"
-        className="scroll-arrow"
-        aria-label="Desplazarse a Servicios de pastelería artesanal"
-        onClick={(e) => {
-          e.preventDefault();
-          document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' });
-        }}
-      >
-        ▼
-      </button>
     </section>
   );
 };
