@@ -74,11 +74,6 @@ export const Navbar: React.FC<NavbarProps> = () => {
           </a>
         </li>
         <li>
-          <a href="#testimonios" onClick={closeMenu}>
-            Opiniones
-          </a>
-        </li>
-        <li>
           <a href="#zonas-entrega" onClick={closeMenu}>
             Envíos
           </a>

@@ -1738,3 +1738,165 @@ footer {
   transform: translateX(4px);
 }
 
+/* ===== BANNER FINO INFERIOR (DISEÑO VISUAL TENOVANCE.COM) ===== */
+.developer-banner {
+  background: radial-gradient(ellipse 70% 120% at 50% -20%, #0c1a2e 0%, #060b14 85%);
+  background-color: #060b14;
+  border-top: 1px solid rgba(234, 88, 12, 0.32);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.45), 0 0 16px rgba(234, 88, 12, 0.12);
+  padding: 0.65rem 1.25rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.developer-banner-glow-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #0284c7 20%, #38bdf8 45%, #ea580c 70%, #df5425 90%, transparent 100%);
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+.developer-banner-inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+.developer-banner-brand-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.developer-banner-tag-badge {
+  font-family: 'Futura', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: rgba(2, 132, 199, 0.14);
+  border: 1px solid rgba(56, 189, 248, 0.38);
+  padding: 0.18rem 0.55rem;
+  border-radius: 9999px;
+  line-height: 1.2;
+}
+
+.developer-banner-text {
+  font-family: 'Futura', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: #cbd5e1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.developer-banner-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  line-height: 1;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+.developer-banner-logo-wrapper {
+  background: #ffffff;
+  padding: 0.26rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(234, 88, 12, 0.38);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 12px rgba(234, 88, 12, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.developer-banner-logo {
+  height: 18px;
+  width: auto;
+  max-width: 110px;
+  object-fit: contain;
+  display: block;
+}
+
+.developer-banner-link:hover {
+  transform: translateY(-1px);
+}
+
+.developer-banner-link:hover .developer-banner-logo-wrapper {
+  border-color: #ea580c;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 18px rgba(223, 84, 37, 0.55);
+  filter: drop-shadow(0 0 6px rgba(223, 84, 37, 0.45));
+}
+
+.developer-banner-site {
+  font-family: 'Futura', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #ea580c;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  transition: color 0.2s ease;
+}
+
+.developer-banner-link:hover .developer-banner-site {
+  color: #ff8533;
+}
+
+.developer-banner-arrow {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.developer-banner-link:hover .developer-banner-arrow {
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 640px) {
+  .developer-banner {
+    padding: 0.55rem 0.8rem;
+  }
+  .developer-banner-inner {
+    gap: 0.6rem;
+  }
+  .developer-banner-brand-tag {
+    gap: 0.4rem;
+  }
+  .developer-banner-tag-badge {
+    font-size: 0.62rem;
+    padding: 0.15rem 0.45rem;
+  }
+  .developer-banner-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+  .developer-banner-logo-wrapper {
+    padding: 0.22rem 0.6rem;
+  }
+  .developer-banner-logo {
+    height: 16px;
+    max-width: 95px;
+  }
+  .developer-banner-site {
+    font-size: 0.7rem;
+  }
+}
+
+

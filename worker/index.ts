@@ -105,8 +105,13 @@ export default {
         expectedHostnames.add(url.hostname.toLowerCase());
       }
 
+      if (!env.TURNSTILE_SECRET) {
+        console.error('Variable de entorno TURNSTILE_SECRET no configurada en el Worker');
+        return jsonResponse({ ok: false, error: 'Servicio de verificación de seguridad no configurado en el servidor' }, 500);
+      }
+
       const searchParams = new URLSearchParams({
-        secret: env.TURNSTILE_SECRET || '',
+        secret: env.TURNSTILE_SECRET,
         response: token,
       });
       if (remoteIp) {
@@ -121,10 +126,6 @@ export default {
           body: searchParams,
         });
 
-        if (!turnstileRes.ok) {
-          throw new Error(`siteverify HTTP ${turnstileRes.status}`);
-        }
-
         const turnstileOutcome = (await turnstileRes.json().catch(() => null)) as {
           success?: boolean;
           action?: string;
@@ -132,17 +133,23 @@ export default {
           'error-codes'?: string[];
         } | null;
 
-        if (
-          !turnstileOutcome ||
-          !turnstileOutcome.success ||
-          (turnstileOutcome.action && turnstileOutcome.action !== expectedAction) ||
-          (turnstileOutcome.hostname && !expectedHostnames.has(turnstileOutcome.hostname.toLowerCase()))
-        ) {
-          return jsonResponse({ ok: false, error: 'Verificación de Turnstile inválida' }, 400);
+        if (!turnstileOutcome || !turnstileOutcome.success) {
+          console.error('Turnstile siteverify falló:', turnstileOutcome?.['error-codes'], 'HTTP status:', turnstileRes.status);
+          return jsonResponse({ ok: false, error: 'Verificación de Turnstile inválida o expirada' }, 400);
+        }
+
+        if (turnstileOutcome.action && turnstileOutcome.action !== expectedAction) {
+          console.error('Turnstile action mismatch:', turnstileOutcome.action, 'expected:', expectedAction);
+          return jsonResponse({ ok: false, error: 'Acción de Turnstile no coincide' }, 400);
+        }
+
+        if (turnstileOutcome.hostname && !expectedHostnames.has(turnstileOutcome.hostname.toLowerCase())) {
+          console.error('Turnstile hostname no autorizado:', turnstileOutcome.hostname);
+          return jsonResponse({ ok: false, error: 'Origen de Turnstile no autorizado' }, 400);
         }
       } catch (err) {
         console.error('Error al contactar Cloudflare Turnstile:', err);
-        return jsonResponse({ ok: false, error: 'Error al validar Turnstile' }, 400);
+        return jsonResponse({ ok: false, error: 'Error al contactar servicio de validación de Turnstile' }, 500);
       }
 
       // 3. Validación de campos obligatorios

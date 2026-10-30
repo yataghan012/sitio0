@@ -4,7 +4,6 @@ import { Hero } from './components/Hero';
 import { Services } from './components/Services';
 import { Gallery } from './components/Gallery';
 import { Products } from './components/Products';
-import { Testimonials } from './components/Testimonials';
 import { CoverageAreas } from './components/CoverageAreas';
 import { Faq } from './components/Faq';
 import { Contact } from './components/Contact';
@@ -52,7 +51,6 @@ export const App: React.FC = () => {
           onOpenMoreModal={() => setIsMoreOpen(true)}
           onSelectImage={handleOpenImage}
         />
-        <Testimonials />
         <CoverageAreas />
         <Faq />
         <Contact />

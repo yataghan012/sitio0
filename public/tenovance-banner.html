@@ -1,0 +1,182 @@
+<!-- =====================================================================
+     BANNER INFERIOR TENOVANCE — DROP-IN SNIPPET (TODO EN UNO)
+     Pega este bloque completo directamente al final de tu página HTML
+     o en el footer de tu proyecto. No requiere archivos externos.
+     ===================================================================== -->
+
+<style>
+  /* ===== ESTILOS DEL BANNER TENOVANCE ===== */
+  .developer-banner {
+    background: radial-gradient(ellipse 70% 120% at 50% -20%, #0c1a2e 0%, #060b14 85%);
+    background-color: #060b14;
+    border-top: 1px solid rgba(234, 88, 12, 0.32);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.45), 0 0 16px rgba(234, 88, 12, 0.12);
+    padding: 0.65rem 1.25rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 9999;
+    overflow: hidden;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  .developer-banner * {
+    box-sizing: border-box;
+  }
+
+  /* Línea superior con el degradado característico de Tenovance */
+  .developer-banner-glow-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #0284c7 20%, #38bdf8 45%, #ea580c 70%, #df5425 90%, transparent 100%);
+    pointer-events: none;
+    opacity: 0.95;
+  }
+
+  .developer-banner-inner {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+  }
+
+  .developer-banner-brand-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .developer-banner-tag-badge {
+    font-family: 'Futura', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #38bdf8;
+    background: rgba(2, 132, 199, 0.14);
+    border: 1px solid rgba(56, 189, 248, 0.38);
+    padding: 0.18rem 0.55rem;
+    border-radius: 9999px;
+    line-height: 1.2;
+    display: inline-block;
+  }
+
+  .developer-banner-text {
+    font-family: 'Futura', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: #cbd5e1;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .developer-banner-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  }
+
+  /* Cápsula blanca con el logo */
+  .developer-banner-logo-wrapper {
+    background: #ffffff;
+    padding: 0.26rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(234, 88, 12, 0.38);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 12px rgba(234, 88, 12, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .developer-banner-logo {
+    height: 18px;
+    width: auto;
+    max-width: 110px;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Efecto al pasar el cursor */
+  .developer-banner-link:hover {
+    transform: translateY(-1px);
+  }
+
+  .developer-banner-link:hover .developer-banner-logo-wrapper {
+    border-color: #ea580c;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 18px rgba(223, 84, 37, 0.55);
+    filter: drop-shadow(0 0 6px rgba(223, 84, 37, 0.45));
+  }
+
+  /* Responsivo para móviles */
+  @media (max-width: 640px) {
+    .developer-banner {
+      padding: 0.55rem 0.8rem;
+    }
+    .developer-banner-inner {
+      gap: 0.6rem;
+    }
+    .developer-banner-brand-tag {
+      gap: 0.4rem;
+    }
+    .developer-banner-tag-badge {
+      font-size: 0.62rem;
+      padding: 0.15rem 0.45rem;
+    }
+    .developer-banner-text {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+    }
+    .developer-banner-logo-wrapper {
+      padding: 0.22rem 0.6rem;
+    }
+    .developer-banner-logo {
+      height: 16px;
+      max-width: 95px;
+    }
+  }
+</style>
+
+<!-- ESTRUCTURA HTML DEL BANNER -->
+<div class="developer-banner" role="contentinfo" aria-label="Créditos del desarrollador">
+  <div class="developer-banner-glow-line" aria-hidden="true"></div>
+  <div class="developer-banner-inner">
+    <div class="developer-banner-brand-tag">
+      <span class="developer-banner-tag-badge">Diseño Web &amp; SEO</span>
+      <span class="developer-banner-text">Desarrollado por</span>
+    </div>
+
+    <a
+      href="https://tenovance.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="developer-banner-link"
+      aria-label="Tenovance — Diseño Web y Crecimiento Digital en Córdoba (abre en nueva pestaña)"
+    >
+      <div class="developer-banner-logo-wrapper">
+        <img
+          src="https://tenovance.com/assets/img/logotenovance.png"
+          alt="Logo de Tenovance"
+          class="developer-banner-logo"
+          width="116"
+          height="25"
+          loading="lazy"
+        />
+      </div>
+    </a>
+  </div>
+</div>
